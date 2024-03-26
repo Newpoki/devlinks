@@ -60,7 +60,7 @@ const config = {
             'h-s': [
                 '16px',
                 {
-                    fontWeight: '700',
+                    fontWeight: '600',
                     lineHeight: '150%',
                 },
             ],
