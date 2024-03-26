@@ -1,6 +1,7 @@
-export const LogoColored = () => {
+export const LogoColored = (props: React.SVGProps<SVGSVGElement>) => {
     return (
         <svg
+            {...props}
             width="40"
             height="40"
             viewBox="0 0 40 40"
