@@ -10,6 +10,24 @@ const config = {
     ],
     prefix: '',
     theme: {
+        colors: {
+            purple: {
+                100: '#EFEBFF',
+                300: '#BEADFF',
+                500: '#633CFF',
+            },
+            grey: {
+                100: '#FAFAFA',
+                300: '#D9D9D9',
+                500: '#737373',
+                900: '#333333',
+            },
+            white: '#FFFFFF',
+            transparent: 'transparent',
+            red: {
+                500: '#FF3939',
+            },
+        },
         fontFamily: {
             sans: ['var(--font-sans)'],
         },
@@ -19,6 +37,36 @@ const config = {
             screens: {
                 '2xl': '1400px',
             },
+        },
+        fontSize: {
+            'b-s': [
+                '12px',
+                {
+                    fontWeight: '400',
+                    lineHeight: '150%',
+                },
+            ],
+            'b-m': [
+                '16px',
+                {
+                    fontWeight: '400',
+                    lineHeight: '150%',
+                },
+            ],
+            'h-s': [
+                '16px',
+                {
+                    fontWeight: '700',
+                    lineHeight: '150%',
+                },
+            ],
+            'h-m': [
+                '32px',
+                {
+                    fontWeight: '700',
+                    lineHeight: '150%',
+                },
+            ],
         },
         extend: {
             keyframes: {
