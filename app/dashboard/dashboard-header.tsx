@@ -30,7 +30,7 @@ export const DashboardHeader = () => {
             </nav>
 
             <Button className="gap-2 px-4 md:px-[27px]" variant="outline" type="button">
-                <Eye />
+                <Eye className="md:hidden" />
                 <h2 className="hidden text-h-s md:inline-block">Preview</h2>
             </Button>
         </header>

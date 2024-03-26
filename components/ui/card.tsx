@@ -4,14 +4,18 @@ import { cn } from '@/lib/utils'
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-        <div ref={ref} className={cn('rounded-xl bg-white p-6 md:p-10', className)} {...props} />
+        <div ref={ref} className={cn('rounded-xl bg-white', className)} {...props} />
     )
 )
 Card.displayName = 'Card'
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-        <div ref={ref} className={cn('mb-10 flex flex-col gap-2', className)} {...props} />
+        <div
+            ref={ref}
+            className={cn('mb-10 flex flex-col gap-2 p-6 pb-0 md:p-10 md:pb-0', className)}
+            {...props}
+        />
     )
 )
 CardHeader.displayName = 'CardHeader'
@@ -21,7 +25,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
         <h3
             ref={ref}
             className={cn(
-                'text-grey-900 md:text-h-m text-[24px] font-bold leading-[150%]',
+                'text-[24px] font-bold leading-[150%] text-grey-900 md:text-h-m',
                 className
             )}
             {...props}
@@ -39,13 +43,22 @@ const CardDescription = React.forwardRef<
 CardDescription.displayName = 'CardDescription'
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-    ({ className, ...props }, ref) => <div ref={ref} className={className} {...props} />
+    ({ className, ...props }, ref) => (
+        <div ref={ref} className={cn('px-6 pb-6 md:px-10 md:pb-10', className)} {...props} />
+    )
 )
 CardContent.displayName = 'CardContent'
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-        <div ref={ref} className={cn('flex items-center', className)} {...props} />
+        <div
+            ref={ref}
+            className={cn(
+                'mt-auto flex items-center border-t-[1px] border-grey-300 p-6 md:justify-end md:px-10 md:py-6',
+                className
+            )}
+            {...props}
+        />
     )
 )
 CardFooter.displayName = 'CardFooter'
