@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
 import './globals.css'
+import { cn } from '@/lib/utils'
 
 // Using local fonts instead of NextFont because there is an issue with InstrumentSans
 const fontSans = localFont({
@@ -35,7 +36,11 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en">
-            <body className={`antialiased ${fontSans.className}`}>{children}</body>
+            <body
+                className={cn('text-grey-900 text-b-m bg-grey-100 antialiased', fontSans.className)}
+            >
+                {children}
+            </body>
         </html>
     )
 }

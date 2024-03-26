@@ -38,6 +38,10 @@ const config = {
                 '2xl': '1400px',
             },
         },
+        screens: {
+            md: '768px',
+            lg: '1440px',
+        },
         fontSize: {
             'b-s': [
                 '12px',
