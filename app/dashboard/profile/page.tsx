@@ -1,3 +1,5 @@
+import { ControlledInput } from '@/components/controlled/controlled-input'
+import { Eye } from '@/components/icons/eye'
 import { Button } from '@/components/ui/button'
 import {
     Card,
@@ -7,6 +9,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { Paper } from '@/components/ui/paper'
 import { getRequiredAuthSession } from '@/lib/auth'
 import Image from 'next/image'
@@ -46,8 +49,27 @@ export default async function DashboardProfilePage() {
                     </p>
                 </Paper>
 
-                <Paper>
-                    <div className="drop-shadow-active h-12 w-12 bg-white" />
+                <Paper className="gap-3">
+                    <ControlledInput
+                        label="First name*"
+                        placeholder="Jason"
+                        name="user.firstName"
+                        startIcon={<Eye className="h-4 w-4" />}
+                    />
+
+                    <ControlledInput
+                        label="Last name*"
+                        placeholder="Savelli"
+                        name="user.lastName"
+                        startIcon={<Eye className="h-4 w-4" />}
+                    />
+
+                    <ControlledInput
+                        label="First name*"
+                        placeholder="Jason"
+                        name="user.email"
+                        startIcon={<Eye className="h-4 w-4" />}
+                    />
                 </Paper>
             </CardContent>
 
