@@ -1,3 +1,5 @@
+'use client'
+
 import { ControlledInput } from '@/components/controlled/controlled-input'
 import { Eye } from '@/components/icons/eye'
 import { Button } from '@/components/ui/button'
@@ -9,13 +11,14 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Paper } from '@/components/ui/paper'
-import { getRequiredAuthSession } from '@/lib/auth'
 import Image from 'next/image'
+import { useFormContext, useWatch } from 'react-hook-form'
 
-export default async function DashboardProfilePage() {
-    const session = await getRequiredAuthSession()
+export default function DashboardProfilePage() {
+    const { control } = useFormContext()
+
+    const pictureUrl = useWatch({ control, name: 'user.pictureUrl' })
 
     return (
         <Card className="flex flex-1 flex-col">
@@ -31,17 +34,16 @@ export default async function DashboardProfilePage() {
                     <h4 className="mb-4 flex-shrink-0 text-b-m md:w-64">Profile picture</h4>
 
                     <div className="mb-6 flex-shrink-0 md:mr-6">
-                        {session.user.image ? (
+                        {pictureUrl ? (
                             <Image
-                                // Replacing to get better image quality
-                                src={session.user.image.replace('=s96-c', '=s384-c')}
+                                src={pictureUrl.replace('=s96-c', '=s384-c')}
                                 alt="User profile picture"
                                 width={193}
                                 height={193}
                                 className="rounded-xl"
                             />
                         ) : (
-                            <div className="h-[193px] w-[193px]" />
+                            <div className="h-[193px] w-[193px] rounded-xl bg-white" />
                         )}
                     </div>
 

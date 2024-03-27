@@ -5,19 +5,23 @@ import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
+import { Profile } from '@prisma/client'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
     session: Session
+    profile: Profile
 }
 
-export const DashboardLayoutSub = ({ children, session }: DashboardLayoutSubProps) => {
+export const DashboardLayoutSub = ({ children, profile, session }: DashboardLayoutSubProps) => {
     const formContext = useForm({
         defaultValues: {
             user: {
-                firstName: '',
-                lastName: '',
-                email: session.user.email ?? '',
+                firstName: profile.firstName ?? '',
+                lastName: profile.lastName ?? '',
+                email: profile.email ?? '',
+                // Replacing to get better image quality
+                pictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? '',
             },
         },
     })
