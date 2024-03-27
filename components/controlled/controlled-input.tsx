@@ -23,7 +23,7 @@ export function ControlledInput<TFieldValues extends FieldValues>({
             name={name}
             render={({ field, fieldState }) => {
                 return (
-                    <FormItem className="w-full">
+                    <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
                         {label && <FormLabel>{label}</FormLabel>}
                         <FormControl>
                             <Input

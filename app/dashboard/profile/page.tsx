@@ -27,11 +27,11 @@ export default async function DashboardProfilePage() {
             </CardHeader>
 
             <CardContent className="flex flex-col gap-6">
-                <Paper className="gap-6 text-grey-500">
-                    <div className="flex flex-col gap-4">
-                        <h4 className="text-b-m ">Profile picture</h4>
+                <Paper className="text-grey-500 md:flex-row md:items-center">
+                    <h4 className="mb-4 flex-shrink-0 text-b-m md:w-64">Profile picture</h4>
 
-                        {session.user.image && (
+                    <div className="mb-6 flex-shrink-0 md:mr-6">
+                        {session.user.image ? (
                             <Image
                                 // Replacing to get better image quality
                                 src={session.user.image.replace('=s96-c', '=s384-c')}
@@ -40,6 +40,8 @@ export default async function DashboardProfilePage() {
                                 height={193}
                                 className="rounded-xl"
                             />
+                        ) : (
+                            <div className="h-[193px] w-[193px]" />
                         )}
                     </div>
 
@@ -49,7 +51,7 @@ export default async function DashboardProfilePage() {
                     </p>
                 </Paper>
 
-                <Paper className="gap-3">
+                <Paper className="gap-3 md:grid">
                     <ControlledInput
                         label="First name*"
                         placeholder="Jason"
@@ -65,8 +67,8 @@ export default async function DashboardProfilePage() {
                     />
 
                     <ControlledInput
-                        label="First name*"
-                        placeholder="Jason"
+                        label="Email"
+                        placeholder="email@gmail.com"
                         name="user.email"
                         startIcon={<Eye className="h-4 w-4" />}
                     />
