@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         return (
             <label
                 className={cn(
-                    'border-slate-200 flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m transition-colors placeholder:text-grey-900/50 focus-within:drop-shadow-active hover:border-purple-500 disabled:cursor-not-allowed',
+                    'border-slate-200 flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m transition-colors placeholder:text-grey-900/50 focus-within:border-purple-500 focus-within:drop-shadow-active hover:border-purple-500 disabled:cursor-not-allowed',
                     {
                         'border-red-500 text-red-500 focus-within:drop-shadow-none hover:border-red-500':
                             hasError,
