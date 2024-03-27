@@ -1,11 +1,17 @@
+'use client'
+
 import { Anchor } from '@/components/icons/anchor'
 import { LogoColored } from '@/components/icons/colored/logo-colored'
 import { Eye } from '@/components/icons/eye'
 import { Profile } from '@/components/icons/profile'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export const DashboardHeader = () => {
+    const pathname = usePathname()
+
+    console.log({ pathname })
     return (
         <header className="flex items-center justify-between rounded-bl-xl rounded-br-xl bg-white px-6 py-4">
             <div className="flex items-center gap-[6px]">
@@ -15,14 +21,24 @@ export const DashboardHeader = () => {
 
             <nav>
                 <Link tabIndex={-1} href="/dashboard">
-                    <Button className="gap-2" variant="text" type="button">
+                    <Button
+                        className="gap-2"
+                        variant="text"
+                        type="button"
+                        aria-selected={pathname === '/dashboard'}
+                    >
                         <Anchor />
                         <h2 className="hidden text-h-s md:inline-block">Links</h2>
                     </Button>
                 </Link>
 
                 <Link tabIndex={-1} href="/dashboard/profile">
-                    <Button className="gap-2" variant="text" type="button">
+                    <Button
+                        className="gap-2"
+                        variant="text"
+                        type="button"
+                        aria-selected={pathname === '/dashboard/profile'}
+                    >
                         <Profile />
                         <h2 className="hidden text-h-s md:inline-block">Profile Details</h2>
                     </Button>
