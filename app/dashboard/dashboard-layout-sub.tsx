@@ -6,15 +6,22 @@ import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
 import { Profile } from '@prisma/client'
+import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
     session: Session
     profile: Profile
+    platforms: Array<DashboardPlatformOption>
 }
 
-export const DashboardLayoutSub = ({ children, profile, session }: DashboardLayoutSubProps) => {
-    const formContext = useForm({
+export const DashboardLayoutSub = ({
+    children,
+    profile,
+    session,
+    platforms,
+}: DashboardLayoutSubProps) => {
+    const formContext = useForm<DashboardFormValues>({
         defaultValues: {
             user: {
                 firstName: profile.firstName ?? '',
@@ -23,6 +30,8 @@ export const DashboardLayoutSub = ({ children, profile, session }: DashboardLayo
                 // Replacing to get better image quality
                 pictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? '',
             },
+            // Having platformsOptions here is subOptimal, but didnt fay a better way to pass the available options
+            platformsOptions: platforms,
         },
     })
 

@@ -46,22 +46,32 @@ model User {
 }
 
 model Profile {
-    id        String              @id @default(auto()) @map("_id") @db.ObjectId
-    userId    String              @unique @db.ObjectId
-    user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-    firstName String?
-    lastName  String?
-    email     String?
-    linkIds   String[]            @db.ObjectId
-    links     SocialNetworkLink[] @relation(fields: [linkIds], references: [id])
+    id                 String            @id @default(auto()) @map("_id") @db.ObjectId
+    userId             String            @unique @db.ObjectId
+    user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    firstName          String?
+    lastName           String?
+    email              String?
+    profilePlatformIds String[]          @db.ObjectId
+    profilePlatforms   Platform[]        @relation(fields: [profilePlatformIds], references: [id])
+    ProfilePlatform    ProfilePlatform[]
 }
 
-model SocialNetworkLink {
-    id         String            @id @default(auto()) @map("_id") @db.ObjectId
-    label      String
-    name       SocialNetworkName
-    profileIds String[]          @db.ObjectId
-    profiles   Profile[]         @relation(fields: [profileIds], references: [id])
+model ProfilePlatform {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    platformId String[] @db.ObjectId
+    platform   Platform @relation(fields: [platformId], references: [id])
+    profileId  String   @db.ObjectId
+    profile    Profile  @relation(fields: [profileId], references: [id])
+}
+
+model Platform {
+    id              String            @id @default(auto()) @map("_id") @db.ObjectId
+    label           String
+    name            PlatformName
+    profileIds      String[]          @db.ObjectId
+    profiles        Profile[]         @relation(fields: [profileIds], references: [id])
+    ProfilePlatform ProfilePlatform[]
 }
 
 model VerificationToken {
@@ -72,7 +82,7 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-enum SocialNetworkName {
+enum PlatformName {
     GITHUB
     FRONTEND_MENTOR
     TWITTER
@@ -85,6 +95,6 @@ enum SocialNetworkName {
     CODEPEN
     FREECODECAMP
     GITLAB
-    HASNOTE
+    HASNODE
     STACK_OVERFLOW
 }

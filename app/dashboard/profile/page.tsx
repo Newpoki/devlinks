@@ -14,9 +14,10 @@ import {
 import { Paper } from '@/components/ui/paper'
 import Image from 'next/image'
 import { useFormContext, useWatch } from 'react-hook-form'
+import { DashboardFormValues } from '../dashboard-schemas'
 
 export default function DashboardProfilePage() {
-    const { control } = useFormContext()
+    const { control } = useFormContext<DashboardFormValues>()
 
     const pictureUrl = useWatch({ control, name: 'user.pictureUrl' })
 
