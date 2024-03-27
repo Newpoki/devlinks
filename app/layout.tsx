@@ -37,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en">
             <body
-                className={cn('text-grey-900 text-b-m bg-grey-100 antialiased', fontSans.className)}
+                className={cn('bg-grey-100 text-b-m text-grey-900 antialiased', fontSans.className)}
             >
                 {children}
             </body>

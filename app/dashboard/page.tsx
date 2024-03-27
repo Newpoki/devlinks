@@ -7,12 +7,9 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { getRequiredAuthSession } from '@/lib/auth'
 import { DashboardNoLinks } from './dashboard-no-links'
 
-export default async function DashboardPage() {
-    getRequiredAuthSession()
-
+export default function DashboardPage() {
     return (
         <Card className="flex flex-1 flex-col">
             <CardHeader>

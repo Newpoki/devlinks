@@ -11,7 +11,6 @@ import { usePathname } from 'next/navigation'
 export const DashboardHeader = () => {
     const pathname = usePathname()
 
-    console.log({ pathname })
     return (
         <header className="flex items-center justify-between rounded-bl-xl rounded-br-xl bg-white px-6 py-4">
             <div className="flex items-center gap-[6px]">
