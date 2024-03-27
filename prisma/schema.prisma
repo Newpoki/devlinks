@@ -46,12 +46,22 @@ model User {
 }
 
 model Profile {
-    id        String  @id @default(auto()) @map("_id") @db.ObjectId
-    userId    String  @unique @db.ObjectId
-    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String              @id @default(auto()) @map("_id") @db.ObjectId
+    userId    String              @unique @db.ObjectId
+    user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
     firstName String?
     lastName  String?
     email     String?
+    linkIds   String[]            @db.ObjectId
+    links     SocialNetworkLink[] @relation(fields: [linkIds], references: [id])
+}
+
+model SocialNetworkLink {
+    id         String            @id @default(auto()) @map("_id") @db.ObjectId
+    label      String
+    name       SocialNetworkName
+    profileIds String[]          @db.ObjectId
+    profiles   Profile[]         @relation(fields: [profileIds], references: [id])
 }
 
 model VerificationToken {
@@ -60,4 +70,21 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+enum SocialNetworkName {
+    GITHUB
+    FRONTEND_MENTOR
+    TWITTER
+    LINKEDIN
+    YOUTUBE
+    FACEBOOK
+    TWITCH
+    DEVTO
+    CODEWARS
+    CODEPEN
+    FREECODECAMP
+    GITLAB
+    HASNOTE
+    STACK_OVERFLOW
 }
