@@ -46,7 +46,9 @@ export default async function DashboardProfilePage() {
                     </p>
                 </Paper>
 
-                <Paper>ddd</Paper>
+                <Paper>
+                    <div className="drop-shadow-active h-12 w-12 bg-white" />
+                </Paper>
             </CardContent>
 
             <CardFooter>
