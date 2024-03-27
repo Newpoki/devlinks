@@ -89,6 +89,7 @@ const config = {
             },
             dropShadow: {
                 active: '0 0 32px #633CFF40',
+                menu: '0 0 32px 0 #0000001A',
             },
         },
     },
