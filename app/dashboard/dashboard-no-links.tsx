@@ -3,7 +3,7 @@ import { Paper } from '@/components/ui/paper'
 
 export const DashboardNoLinks = () => {
     return (
-        <Paper className="items-center justify-center gap-6 py-[46px] text-center md:py-[82px] lg:my-[62px]">
+        <Paper className="flex-1 items-center justify-center gap-6 text-center">
             <PointingMobileIllustrationColored />
 
             <h3 className="text-[24px] font-bold leading-[150%] md:text-h-m">

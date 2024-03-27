@@ -22,7 +22,7 @@ export default async function DashboardPage() {
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-6">
+            <CardContent className="flex flex-1 flex-col gap-6">
                 <Button className="w-full" variant="outline" type="button">
                     + Add new link
                 </Button>
