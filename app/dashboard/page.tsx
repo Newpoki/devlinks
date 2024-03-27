@@ -20,7 +20,7 @@ export default function DashboardPage() {
 
     const availablePlatforms = useWatch({ control, name: 'platformsOptions' })
 
-    const { fields, append } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
         name: 'platforms', // unique name for your Field Array
         keyName: 'key',
@@ -51,7 +51,11 @@ export default function DashboardPage() {
                 {fields.length === 0 ? (
                     <DashboardNoLinks />
                 ) : (
-                    <DashboardPlatforms fields={fields} platforms={availablePlatforms} />
+                    <DashboardPlatforms
+                        fields={fields}
+                        platforms={availablePlatforms}
+                        onRemove={remove}
+                    />
                 )}
             </CardContent>
 

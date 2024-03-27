@@ -5,14 +5,20 @@ import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schema
 type DashboardPlatformsProps = {
     platforms: DashboardPlatformOption[]
     fields: FieldArrayWithId<DashboardFormValues, 'platforms', 'key'>[]
+    onRemove: (linkIndex: number) => void
 }
 
-export const DashboardPlatforms = ({ platforms, fields }: DashboardPlatformsProps) => {
+export const DashboardPlatforms = ({ platforms, fields, onRemove }: DashboardPlatformsProps) => {
     return (
         <>
             {fields.map((field, index) => {
                 return (
-                    <DashboardPlatformField key={field.key} index={index} platforms={platforms} />
+                    <DashboardPlatformField
+                        key={field.key}
+                        index={index}
+                        platforms={platforms}
+                        onRemove={onRemove}
+                    />
                 )
             })}
         </>
