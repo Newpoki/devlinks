@@ -11,10 +11,10 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { ControlledInput } from '@/components/controlled/controlled-input'
 import { Label } from '@/components/ui/label'
-import { FormControl, FormField, FormItem } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
+import { Input } from '@/components/ui/input'
 
 type DashboardPlatformFieldProps = {
     platforms: DashboardPlatformOption[]
@@ -101,10 +101,24 @@ export const DashboardPlatformField = ({
                 }}
             />
 
-            <ControlledInput
+            <FormField
+                control={control}
                 name={`platforms.${index}.url`}
-                placeholder="https://google.fr"
-                label="Link"
+                render={({ field, fieldState }) => {
+                    return (
+                        <FormItem className="w-full">
+                            <FormLabel>Link</FormLabel>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    value={field.value ?? ''}
+                                    placeholder="https://google.fr"
+                                    error={fieldState.error?.message}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )
+                }}
             />
         </Paper>
     )

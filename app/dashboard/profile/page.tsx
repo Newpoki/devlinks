@@ -1,7 +1,5 @@
 'use client'
 
-import { ControlledInput } from '@/components/controlled/controlled-input'
-import { Eye } from '@/components/icons/eye'
 import { Button } from '@/components/ui/button'
 import {
     Card,
@@ -15,6 +13,8 @@ import { Paper } from '@/components/ui/paper'
 import Image from 'next/image'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { DashboardFormValues } from '../dashboard-schemas'
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 
 export default function DashboardProfilePage() {
     const { control } = useFormContext<DashboardFormValues>()
@@ -55,25 +55,70 @@ export default function DashboardProfilePage() {
                 </Paper>
 
                 <Paper className="gap-3 md:grid">
-                    <ControlledInput
-                        label="First name*"
-                        placeholder="Jason"
+                    <FormField
+                        control={control}
                         name="user.firstName"
-                        startIcon={<Eye className="h-4 w-4" />}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
+                                    <FormLabel className="md:text-b-m md:text-grey-500">
+                                        First name*
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            value={field.value ?? ''}
+                                            placeholder="Jason"
+                                            error={fieldState.error?.message}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )
+                        }}
                     />
 
-                    <ControlledInput
-                        label="Last name*"
-                        placeholder="Savelli"
+                    <FormField
+                        control={control}
                         name="user.lastName"
-                        startIcon={<Eye className="h-4 w-4" />}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
+                                    <FormLabel className="md:text-b-m md:text-grey-500">
+                                        Last name*
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            value={field.value ?? ''}
+                                            placeholder="Savelli"
+                                            error={fieldState.error?.message}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )
+                        }}
                     />
 
-                    <ControlledInput
-                        label="Email"
-                        placeholder="email@gmail.com"
+                    <FormField
+                        control={control}
                         name="user.email"
-                        startIcon={<Eye className="h-4 w-4" />}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
+                                    <FormLabel className="md:text-b-m md:text-grey-500">
+                                        Last name*
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            value={field.value ?? ''}
+                                            placeholder="email@gmail.com"
+                                            error={fieldState.error?.message}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )
+                        }}
                     />
                 </Paper>
             </CardContent>
