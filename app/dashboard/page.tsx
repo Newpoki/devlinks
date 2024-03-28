@@ -27,8 +27,14 @@ export default function DashboardPage() {
     })
 
     const handleAddNewPlatform = useCallback(() => {
-        append({ label: '', name: 'GITHUB', url: '' })
-    }, [append])
+        const firstAvailablePlatforms = availablePlatforms[0]
+
+        if (firstAvailablePlatforms == null) {
+            return
+        }
+
+        append({ name: firstAvailablePlatforms.name, url: '' })
+    }, [append, availablePlatforms])
 
     return (
         <Card className="flex flex-1 flex-col">

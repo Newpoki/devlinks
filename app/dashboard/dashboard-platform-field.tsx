@@ -3,6 +3,18 @@ import { useFormContext } from 'react-hook-form'
 import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
 import { DragHandle } from '@/components/icons/drag-handle'
 import { useCallback } from 'react'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
+import { ControlledInput } from '@/components/controlled/controlled-input'
+import { Label } from '@/components/ui/label'
+import { FormControl, FormField, FormItem } from '@/components/ui/form'
+import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 
 type DashboardPlatformFieldProps = {
     platforms: DashboardPlatformOption[]
@@ -22,7 +34,7 @@ export const DashboardPlatformField = ({
     }, [index, onRemove])
 
     return (
-        <Paper>
+        <Paper className="gap-3">
             <div className="flex items-center justify-between text-grey-500">
                 <div className="flex items-center gap-2">
                     <DragHandle />
@@ -33,6 +45,67 @@ export const DashboardPlatformField = ({
                     Remove
                 </button>
             </div>
+
+            <FormField
+                control={control}
+                name={`platforms.${index}.name`}
+                render={({ field: { ref, onChange, ...othersField } }) => {
+                    const selectedOption = platforms.find(
+                        (platform) => platform.name === othersField.value
+                    )
+
+                    return (
+                        <FormItem className="w-full">
+                            <Label>Platform</Label>
+                            <FormControl>
+                                <Select {...othersField} onValueChange={onChange}>
+                                    <SelectTrigger className="flex w-full">
+                                        {selectedOption != null && (
+                                            <DashboardPlatformFieldIcon
+                                                name={selectedOption.name}
+                                            />
+                                        )}
+
+                                        <SelectValue />
+                                    </SelectTrigger>
+
+                                    <SelectContent ref={ref}>
+                                        {platforms.map((option, index) => {
+                                            const isLast = index === platforms.length - 1
+
+                                            return (
+                                                <div
+                                                    className="flex flex-col gap-3"
+                                                    key={option.id}
+                                                >
+                                                    <SelectItem
+                                                        value={option.name}
+                                                        icon={
+                                                            <DashboardPlatformFieldIcon
+                                                                name={option.name}
+                                                            />
+                                                        }
+                                                    >
+                                                        {option.label}
+                                                    </SelectItem>
+
+                                                    {!isLast && <SelectSeparator />}
+                                                </div>
+                                            )
+                                        })}
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                        </FormItem>
+                    )
+                }}
+            />
+
+            <ControlledInput
+                name={`platforms.${index}.url`}
+                placeholder="https://google.fr"
+                label="Link"
+            />
         </Paper>
     )
 }

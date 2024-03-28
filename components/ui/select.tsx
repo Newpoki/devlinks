@@ -18,7 +18,7 @@ const SelectTrigger = React.forwardRef<
         <SelectPrimitive.Trigger
             ref={ref}
             className={cn(
-                'border-slate-200 group flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m transition-colors focus-within:drop-shadow-active hover:border-purple-500 focus:border-purple-500 focus:outline-none disabled:cursor-not-allowed [&>span]:line-clamp-1',
+                'group flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m text-grey-500 transition-colors focus-within:drop-shadow-active hover:border-purple-500 focus:border-purple-500 focus:outline-none disabled:cursor-not-allowed [&>span]:line-clamp-1',
 
                 className
             )}
@@ -42,7 +42,7 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Content
             ref={ref}
             className={cn(
-                'relative z-50 max-h-32 min-w-[8rem] overflow-hidden rounded-lg border border-grey-300 bg-white text-grey-900 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+                'relative z-50 max-h-32 min-w-[8rem] overflow-hidden rounded-lg border border-grey-300 bg-white text-grey-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
                 position === 'popper' &&
                     'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
                 className
@@ -66,17 +66,21 @@ SelectContent.displayName = SelectPrimitive.Content.displayName
 
 const SelectItem = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Item>,
-    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & { icon?: React.ReactNode }
+>(({ className, children, icon, ...props }, ref) => (
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
-            'relative flex w-full cursor-default select-none items-center rounded-sm text-b-m outline-none focus:text-purple-500 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            'relative flex w-full cursor-default select-none items-center gap-3 rounded-sm text-b-m outline-none focus:text-purple-500 data-[disabled]:pointer-events-none data-[state=checked]:text-purple-500 data-[disabled]:opacity-50',
             className
         )}
         {...props}
     >
-        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+        <SelectPrimitive.Icon>{icon}</SelectPrimitive.Icon>
+
+        <SelectPrimitive.ItemText>
+            <span>{children}</span>
+        </SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName
