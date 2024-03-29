@@ -2,7 +2,7 @@ import { getRequiredAuthSession } from '@/lib/auth'
 import { DashboardLayoutSub } from './dashboard-layout-sub'
 import prisma from '@/lib/prisma'
 import { Session } from 'next-auth'
-import { Profile } from '@prisma/client'
+import { Profile, ProfilePlatform } from '@prisma/client'
 import { DashboardPlatformOption } from './dashboard-schemas'
 
 type DashboardLayoutProps = {
@@ -41,6 +41,15 @@ const fetchAvailablePlatforms = async (): Promise<DashboardPlatformOption[]> => 
     return platforms
 }
 
+const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<ProfilePlatform[]> => {
+    const userProfilePlatforms = await prisma.profilePlatform.findMany({
+        where: {
+            profileId,
+        },
+    })
+
+    return userProfilePlatforms
+}
 // TODO: Delete me
 // const add = async () => {
 //     const user = await prisma.platform.createMany({
@@ -110,9 +119,15 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
 
     const userProfile = await fetchUserProfile(session)
     const platforms = await fetchAvailablePlatforms()
+    const profilePlatforms = await fetchUserProfilePlatforms(userProfile.id)
 
     return (
-        <DashboardLayoutSub profile={userProfile} session={session} platforms={platforms}>
+        <DashboardLayoutSub
+            profile={userProfile}
+            session={session}
+            platforms={platforms}
+            profilePlatforms={profilePlatforms}
+        >
             {children}
         </DashboardLayoutSub>
     )

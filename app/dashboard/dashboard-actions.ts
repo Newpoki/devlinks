@@ -5,7 +5,7 @@ import { DashboardFormValues } from './dashboard-schemas'
 
 export const updateDashboard = async (formValues: DashboardFormValues) => {
     try {
-        await prisma.profile.update({
+        const userProfile = await prisma.profile.update({
             where: {
                 userId: formValues.user.id,
             },
@@ -14,6 +14,23 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
                 email: formValues.user.email,
                 lastName: formValues.user.lastName,
             },
+        })
+
+        await prisma.profilePlatform.deleteMany({
+            where: {
+                profileId: userProfile.id,
+            },
+        })
+
+        await prisma.profilePlatform.createMany({
+            data: formValues.platforms.map((platform) => {
+                return {
+                    platformId: platform.id,
+                    profileId: userProfile.id,
+                    url: platform.url,
+                    name: platform.name,
+                }
+            }),
         })
     } catch (error) {
         console.log(error)

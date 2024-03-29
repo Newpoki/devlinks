@@ -35,7 +35,7 @@ export default function DashboardPage() {
             return
         }
 
-        append({ name: firstAvailablePlatforms.name, url: '' })
+        append({ name: firstAvailablePlatforms.name, url: '', id: firstAvailablePlatforms.id })
     }, [append, availablePlatforms])
 
     return (

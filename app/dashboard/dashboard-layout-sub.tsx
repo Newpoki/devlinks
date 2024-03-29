@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
-import { Profile } from '@prisma/client'
+import { Profile, ProfilePlatform } from '@prisma/client'
 import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
 import { updateDashboard } from './dashboard-actions'
 
@@ -14,6 +14,7 @@ type DashboardLayoutSubProps = {
     session: Session
     profile: Profile
     platforms: Array<DashboardPlatformOption>
+    profilePlatforms: Array<ProfilePlatform>
 }
 
 export const DashboardLayoutSub = ({
@@ -21,6 +22,7 @@ export const DashboardLayoutSub = ({
     profile,
     session,
     platforms,
+    profilePlatforms,
 }: DashboardLayoutSubProps) => {
     const formContext = useForm<DashboardFormValues>({
         defaultValues: {
@@ -32,6 +34,7 @@ export const DashboardLayoutSub = ({
                 pictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? '',
                 id: profile.userId,
             },
+            platforms: profilePlatforms,
             // Having platformsOptions here is subOptimal, but didnt fay a better way to pass the available options
             platformsOptions: platforms,
         },

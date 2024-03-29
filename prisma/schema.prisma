@@ -58,11 +58,13 @@ model Profile {
 }
 
 model ProfilePlatform {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    platformId String[] @db.ObjectId
-    platform   Platform @relation(fields: [platformId], references: [id])
-    profileId  String   @db.ObjectId
-    profile    Profile  @relation(fields: [profileId], references: [id])
+    id         String       @id @default(auto()) @map("_id") @db.ObjectId
+    platformId String       @db.ObjectId
+    platform   Platform     @relation(fields: [platformId], references: [id])
+    profileId  String       @db.ObjectId
+    profile    Profile      @relation(fields: [profileId], references: [id])
+    url        String
+    name       PlatformName
 }
 
 model Platform {
