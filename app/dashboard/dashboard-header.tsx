@@ -19,12 +19,12 @@ export const DashboardHeader = () => {
             </div>
 
             <nav>
-                <Link tabIndex={-1} href="/dashboard">
+                <Link tabIndex={-1} href="/dashboard/platforms">
                     <Button
                         className="gap-2"
                         variant="text"
                         type="button"
-                        aria-selected={pathname === '/dashboard'}
+                        aria-selected={pathname === '/dashboard/platforms'}
                     >
                         <Anchor />
                         <h2 className="hidden text-h-s md:inline-block">Links</h2>

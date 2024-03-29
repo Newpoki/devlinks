@@ -1,7 +1,7 @@
 import { PointingMobileIllustrationColored } from '@/components/icons/colored/pointing-mobile-illustration-colored'
 import { Paper } from '@/components/ui/paper'
 
-export const DashboardNoLinks = () => {
+export const DashboardNoPlatforms = () => {
     return (
         <Paper className="flex-1 items-center justify-center gap-6 text-center">
             <PointingMobileIllustrationColored />
