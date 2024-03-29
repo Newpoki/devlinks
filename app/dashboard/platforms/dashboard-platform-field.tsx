@@ -1,6 +1,5 @@
 import { Paper } from '@/components/ui/paper'
 import { useFormContext } from 'react-hook-form'
-import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
 import { DragHandle } from '@/components/icons/drag-handle'
 import { useCallback } from 'react'
 import {
@@ -15,16 +14,17 @@ import { Label } from '@/components/ui/label'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 import { Input } from '@/components/ui/input'
+import { DashboardFormValues, DashboardPlatformOption } from '../dashboard-schemas'
 
 type DashboardPlatformFieldProps = {
-    platforms: DashboardPlatformOption[]
+    platformsOptions: DashboardPlatformOption[]
     index: number
     onRemove: (linkIndex: number) => void
 }
 
 export const DashboardPlatformField = ({
     index,
-    platforms,
+    platformsOptions,
     onRemove,
 }: DashboardPlatformFieldProps) => {
     const { control } = useFormContext<DashboardFormValues>()
@@ -50,8 +50,8 @@ export const DashboardPlatformField = ({
                 control={control}
                 name={`platforms.${index}.name`}
                 render={({ field: { ref, onChange, ...othersField } }) => {
-                    const selectedOption = platforms.find(
-                        (platform) => platform.name === othersField.value
+                    const selectedOption = platformsOptions.find(
+                        (platformOption) => platformOption.name === othersField.value
                     )
 
                     return (
@@ -70,8 +70,8 @@ export const DashboardPlatformField = ({
                                     </SelectTrigger>
 
                                     <SelectContent ref={ref}>
-                                        {platforms.map((option, index) => {
-                                            const isLast = index === platforms.length - 1
+                                        {platformsOptions.map((option, index) => {
+                                            const isLast = index === platformsOptions.length - 1
 
                                             return (
                                                 <div

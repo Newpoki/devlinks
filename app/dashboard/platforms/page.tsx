@@ -1,14 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import { useCallback } from 'react'
 import { DashboardFormValues } from '../dashboard-schemas'
@@ -16,11 +9,9 @@ import { DashboardNoPlatforms } from './dashboard-no-platforms'
 import { DashboardPlatformField } from './dashboard-platform-field'
 
 export default function DashboardPlatforms() {
-    const { control, formState } = useFormContext<DashboardFormValues>()
+    const { control } = useFormContext<DashboardFormValues>()
 
-    const availablePlatforms = useWatch({ control, name: 'platformsOptions' })
-
-    const { isSubmitting } = formState
+    const platformsOptions = useWatch({ control, name: 'platformsOptions' })
 
     const { fields, append, remove } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
@@ -29,14 +20,14 @@ export default function DashboardPlatforms() {
     })
 
     const handleAddNewPlatform = useCallback(() => {
-        const firstAvailablePlatforms = availablePlatforms[0]
+        const firstAvailablePlatforms = platformsOptions[0]
 
         if (firstAvailablePlatforms == null) {
             return
         }
 
         append({ name: firstAvailablePlatforms.name, url: '', id: firstAvailablePlatforms.id })
-    }, [append, availablePlatforms])
+    }, [append, platformsOptions])
 
     return (
         <>
@@ -67,7 +58,7 @@ export default function DashboardPlatforms() {
                                     key={field.key}
                                     index={index}
                                     onRemove={remove}
-                                    platforms={availablePlatforms}
+                                    platformsOptions={platformsOptions}
                                 />
                             )
                         })}
