@@ -20,8 +20,14 @@ export default function DashboardPlatforms() {
         keyName: 'key',
     })
 
+    // We don't want to add many times the same platform, so the new added platform
+    // must not already be there
+    const availablePlatformsToAdd = platformsOptions.filter(
+        (option) => !fields.some((field) => field.name === option.name)
+    )
+
     const handleAddNewPlatform = useCallback(() => {
-        const firstAvailablePlatforms = platformsOptions[0]
+        const firstAvailablePlatforms = availablePlatformsToAdd[0]
 
         if (firstAvailablePlatforms == null) {
             return
@@ -31,7 +37,7 @@ export default function DashboardPlatforms() {
             name: firstAvailablePlatforms.name,
             url: '',
         })
-    }, [append, platformsOptions])
+    }, [append, availablePlatformsToAdd])
 
     return (
         <ScrollArea>
@@ -44,6 +50,7 @@ export default function DashboardPlatforms() {
 
             <CardContent className="flex flex-1 flex-col gap-6 overflow-hidden">
                 <Button
+                    disabled={availablePlatformsToAdd.length === 0}
                     className="w-full"
                     variant="outline"
                     type="button"

@@ -1,7 +1,7 @@
 import { Paper } from '@/components/ui/paper'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import { DragHandle } from '@/components/icons/drag-handle'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import {
     Select,
     SelectContent,
@@ -28,6 +28,22 @@ export const DashboardPlatformField = ({
     onRemove,
 }: DashboardPlatformFieldProps) => {
     const { control } = useFormContext<DashboardFormValues>()
+
+    const platforms = useWatch({ control, name: 'platforms' })
+    const fieldPlatform = useWatch({ control, name: `platforms.${index}` })
+
+    // We're removing options that are already selected
+    // Except the one that might be selected by the field
+    // so select can work properly
+    const filteredOptions = useMemo(() => {
+        return platformsOptions.filter((option) => {
+            if (option.name === fieldPlatform.name) {
+                return true
+            }
+
+            return platforms.some((platform) => platform.name === option.name) === false
+        })
+    }, [fieldPlatform.name, platforms, platformsOptions])
 
     const handleRemove = useCallback(() => {
         onRemove(index)
@@ -70,8 +86,8 @@ export const DashboardPlatformField = ({
                                     </SelectTrigger>
 
                                     <SelectContent ref={ref}>
-                                        {platformsOptions.map((option, index) => {
-                                            const isLast = index === platformsOptions.length - 1
+                                        {filteredOptions.map((option, index) => {
+                                            const isLast = index === filteredOptions.length - 1
 
                                             return (
                                                 <div

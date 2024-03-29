@@ -52,7 +52,7 @@ const SelectContent = React.forwardRef<
         >
             <SelectPrimitive.Viewport
                 className={cn(
-                    'drop-shadow-menu flex flex-col gap-3 px-4 py-3',
+                    'flex flex-col gap-3 px-4 py-3 drop-shadow-menu',
                     position === 'popper' &&
                         'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
                 )}
