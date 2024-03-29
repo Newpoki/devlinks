@@ -36,7 +36,6 @@ export const dashboardFormValuesSchema = z.object({
         z.object({
             name: platformName,
             url: z.string(),
-            id: z.string(),
         })
     ),
 })

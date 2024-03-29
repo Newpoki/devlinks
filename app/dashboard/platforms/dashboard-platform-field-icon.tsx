@@ -1,5 +1,4 @@
 import { Codepen } from '@/components/icons/codepen'
-import { DashboardPlatformOption } from './dashboard-schemas'
 import { Codewars } from '@/components/icons/codewars'
 import { DevTo } from '@/components/icons/devto'
 import { Facebook } from '@/components/icons/facebook'
@@ -13,6 +12,7 @@ import { StackOverflow } from '@/components/icons/stackoverflow'
 import { Twitch } from '@/components/icons/twitch'
 import { Twitter } from '@/components/icons/twitter'
 import { Youtube } from '@/components/icons/youtube'
+import { DashboardPlatformOption } from '../dashboard-schemas'
 
 type DashboardPlatformFieldIconProps = {
     name: DashboardPlatformOption['name']

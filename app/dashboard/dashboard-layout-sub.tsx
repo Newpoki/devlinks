@@ -10,6 +10,8 @@ import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schema
 import { updateDashboard } from './dashboard-actions'
 import { Card } from '@/components/ui/card'
 import { DashboardFooter } from './dashboard-footer'
+import { DashboardDraftPreview } from './dashboard-draft-preview'
+import { cn } from '@/lib/utils'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -51,7 +53,13 @@ export const DashboardLayoutSub = ({
             <div className="flex min-h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
                 <DashboardHeader />
 
-                <main className="flex flex-1 flex-col p-4 pt-0 md:p-0">
+                <main
+                    className={cn(
+                        'flex flex-1 flex-col p-4 pt-0 md:p-0 lg:grid lg:grid-cols-[38fr_62fr] lg:gap-6'
+                    )}
+                >
+                    <DashboardDraftPreview />
+
                     <Card className="flex flex-1 flex-col">
                         {children}
 
