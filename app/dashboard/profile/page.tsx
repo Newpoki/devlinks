@@ -7,6 +7,7 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import { DashboardFormValues } from '../dashboard-schemas'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function DashboardProfilePage() {
     const { control, formState } = useFormContext<DashboardFormValues>()
@@ -16,7 +17,7 @@ export default function DashboardProfilePage() {
     const { isSubmitting } = formState
 
     return (
-        <>
+        <ScrollArea>
             <CardHeader>
                 <CardTitle>Profile Details</CardTitle>
                 <CardDescription>
@@ -119,6 +120,6 @@ export default function DashboardProfilePage() {
                     />
                 </Paper>
             </CardContent>
-        </>
+        </ScrollArea>
     )
 }
