@@ -8,6 +8,8 @@ import { Session } from 'next-auth'
 import { Profile, ProfilePlatform } from '@prisma/client'
 import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
 import { updateDashboard } from './dashboard-actions'
+import { Card } from '@/components/ui/card'
+import { DashboardFooter } from './dashboard-footer'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -49,7 +51,13 @@ export const DashboardLayoutSub = ({
             <div className="flex min-h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
                 <DashboardHeader />
 
-                <main className="flex flex-1 flex-col p-4 pt-0 md:p-0">{children}</main>
+                <main className="flex flex-1 flex-col p-4 pt-0 md:p-0">
+                    <Card className="flex flex-1 flex-col">
+                        {children}
+
+                        <DashboardFooter />
+                    </Card>
+                </main>
             </div>
         </ControlledForm>
     )

@@ -1,14 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Paper } from '@/components/ui/paper'
 import Image from 'next/image'
 import { useFormContext, useWatch } from 'react-hook-form'
@@ -24,7 +16,7 @@ export default function DashboardProfilePage() {
     const { isSubmitting } = formState
 
     return (
-        <Card className="flex flex-1 flex-col">
+        <>
             <CardHeader>
                 <CardTitle>Profile Details</CardTitle>
                 <CardDescription>
@@ -127,12 +119,6 @@ export default function DashboardProfilePage() {
                     />
                 </Paper>
             </CardContent>
-
-            <CardFooter>
-                <Button className="w-full md:w-auto" disabled={isSubmitting}>
-                    Save
-                </Button>
-            </CardFooter>
-        </Card>
+        </>
     )
 }

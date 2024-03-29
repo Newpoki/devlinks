@@ -39,7 +39,7 @@ export default function DashboardPlatforms() {
     }, [append, availablePlatforms])
 
     return (
-        <Card className="flex flex-1 flex-col">
+        <>
             <CardHeader>
                 <CardTitle>Customize your links</CardTitle>
                 <CardDescription>
@@ -74,12 +74,6 @@ export default function DashboardPlatforms() {
                     </>
                 )}
             </CardContent>
-
-            <CardFooter>
-                <Button className="w-full md:w-auto" disabled={isSubmitting || fields.length === 0}>
-                    Save
-                </Button>
-            </CardFooter>
-        </Card>
+        </>
     )
 }
