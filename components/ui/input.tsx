@@ -8,16 +8,17 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({ className, error, id, type, startIcon, ...props }, ref) => {
+    ({ className, disabled, error, id, type, startIcon, ...props }, ref) => {
         const hasError = error != null
 
         return (
             <label
                 className={cn(
-                    'border-slate-200 flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m transition-colors placeholder:text-grey-900/50 focus-within:border-purple-500 focus-within:drop-shadow-active hover:border-purple-500 disabled:cursor-not-allowed',
+                    'flex h-12 w-full items-center gap-3 rounded-lg border border-grey-300 bg-white px-4 text-b-m transition-all placeholder:text-grey-900/50 focus-within:border-purple-500 focus-within:drop-shadow-active hover:border-purple-500 disabled:cursor-not-allowed',
                     {
                         'border-red-500 text-red-500 focus-within:drop-shadow-none hover:border-red-500':
                             hasError,
+                        'opacity-50 hover:border-grey-300': disabled,
                     },
                     className
                 )}
@@ -28,7 +29,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 )}
 
                 <input
-                    className="w-full focus-visible:outline-none"
+                    className="w-full focus-visible:outline-none disabled:bg-transparent"
+                    disabled={disabled}
                     id={id}
                     type={type}
                     ref={ref}

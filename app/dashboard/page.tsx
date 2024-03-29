@@ -16,9 +16,11 @@ import { DashboardNoLinks } from './dashboard-no-links'
 import { DashboardFormValues } from './dashboard-schemas'
 
 export default function DashboardPage() {
-    const { control } = useFormContext<DashboardFormValues>()
+    const { control, formState } = useFormContext<DashboardFormValues>()
 
     const availablePlatforms = useWatch({ control, name: 'platformsOptions' })
+
+    const { isSubmitting } = formState
 
     const { fields, append, remove } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
@@ -66,11 +68,7 @@ export default function DashboardPage() {
             </CardContent>
 
             <CardFooter>
-                <Button
-                    className="w-full md:w-auto"
-                    // TODO: disabled only if link list.length === 0
-                    disabled
-                >
+                <Button className="w-full md:w-auto" disabled={isSubmitting || fields.length === 0}>
                     Save
                 </Button>
             </CardFooter>

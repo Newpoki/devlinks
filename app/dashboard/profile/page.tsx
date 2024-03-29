@@ -17,9 +17,11 @@ import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/for
 import { Input } from '@/components/ui/input'
 
 export default function DashboardProfilePage() {
-    const { control } = useFormContext<DashboardFormValues>()
+    const { control, formState } = useFormContext<DashboardFormValues>()
 
     const pictureUrl = useWatch({ control, name: 'user.pictureUrl' })
+
+    const { isSubmitting } = formState
 
     return (
         <Card className="flex flex-1 flex-col">
@@ -57,6 +59,7 @@ export default function DashboardProfilePage() {
                 <Paper className="gap-3 md:grid">
                     <FormField
                         control={control}
+                        disabled={isSubmitting}
                         name="user.firstName"
                         render={({ field, fieldState }) => {
                             return (
@@ -80,6 +83,7 @@ export default function DashboardProfilePage() {
                     <FormField
                         control={control}
                         name="user.lastName"
+                        disabled={isSubmitting}
                         render={({ field, fieldState }) => {
                             return (
                                 <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
@@ -102,6 +106,7 @@ export default function DashboardProfilePage() {
                     <FormField
                         control={control}
                         name="user.email"
+                        disabled={isSubmitting}
                         render={({ field, fieldState }) => {
                             return (
                                 <FormItem className="w-full md:grid md:grid-cols-[256px_auto] md:items-center">
@@ -124,11 +129,7 @@ export default function DashboardProfilePage() {
             </CardContent>
 
             <CardFooter>
-                <Button
-                    className="w-full md:w-auto"
-                    // TODO: disabled only when submitting
-                    disabled={false}
-                >
+                <Button className="w-full md:w-auto" disabled={isSubmitting}>
                     Save
                 </Button>
             </CardFooter>

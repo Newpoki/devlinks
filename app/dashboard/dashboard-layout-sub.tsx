@@ -7,6 +7,7 @@ import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
 import { Profile } from '@prisma/client'
 import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
+import { updateDashboard } from './dashboard-actions'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -29,14 +30,15 @@ export const DashboardLayoutSub = ({
                 email: profile.email ?? '',
                 // Replacing to get better image quality
                 pictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? '',
+                id: profile.userId,
             },
             // Having platformsOptions here is subOptimal, but didnt fay a better way to pass the available options
             platformsOptions: platforms,
         },
     })
 
-    const handleSubmit = useCallback(() => {
-        console.log('submit')
+    const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
+        await updateDashboard(formValues)
     }, [])
 
     return (

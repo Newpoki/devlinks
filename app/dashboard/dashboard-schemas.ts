@@ -29,6 +29,7 @@ export const dashboardFormValuesSchema = z.object({
         lastName: z.string(),
         email: z.string(),
         pictureUrl: z.string(),
+        id: z.string(),
     }),
     platformsOptions: z.array(dashboardPlatformOption),
     platforms: z.array(
