@@ -37,7 +37,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en">
             <body
-                className={cn('bg-grey-100 text-b-m text-grey-900 antialiased', fontSans.className)}
+                className={cn(
+                    'overflow-hidden bg-grey-100 text-b-m text-grey-900 antialiased',
+                    fontSans.className
+                )}
             >
                 {children}
             </body>

@@ -50,17 +50,17 @@ export const DashboardLayoutSub = ({
 
     return (
         <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
-            <div className="flex min-h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
+            <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
                 <DashboardHeader />
 
                 <main
                     className={cn(
-                        'flex flex-1 flex-col p-4 pt-0 md:p-0 lg:grid lg:grid-cols-[38fr_62fr] lg:gap-6'
+                        'flex flex-1 flex-col overflow-hidden p-4 pt-0 md:p-0 lg:grid lg:grid-cols-[38fr_62fr] lg:gap-6'
                     )}
                 >
                     <DashboardDraftPreview />
 
-                    <Card className="flex flex-1 flex-col">
+                    <Card className="flex flex-1 flex-col overflow-hidden">
                         {children}
 
                         <DashboardFooter />

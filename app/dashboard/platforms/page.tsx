@@ -7,6 +7,7 @@ import { useCallback } from 'react'
 import { DashboardFormValues } from '../dashboard-schemas'
 import { DashboardNoPlatforms } from './dashboard-no-platforms'
 import { DashboardPlatformField } from './dashboard-platform-field'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function DashboardPlatforms() {
     const { control } = useFormContext<DashboardFormValues>()
@@ -33,7 +34,7 @@ export default function DashboardPlatforms() {
     }, [append, platformsOptions])
 
     return (
-        <>
+        <ScrollArea>
             <CardHeader>
                 <CardTitle>Customize your links</CardTitle>
                 <CardDescription>
@@ -41,7 +42,7 @@ export default function DashboardPlatforms() {
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="flex flex-1 flex-col gap-6">
+            <CardContent className="flex flex-1 flex-col gap-6 overflow-hidden">
                 <Button
                     className="w-full"
                     variant="outline"
@@ -55,19 +56,21 @@ export default function DashboardPlatforms() {
                     <DashboardNoPlatforms />
                 ) : (
                     <>
-                        {fields.map((field, index) => {
-                            return (
-                                <DashboardPlatformField
-                                    key={field.key}
-                                    index={index}
-                                    onRemove={remove}
-                                    platformsOptions={platformsOptions}
-                                />
-                            )
-                        })}
+                        <div className="flex flex-col gap-6">
+                            {fields.map((field, index) => {
+                                return (
+                                    <DashboardPlatformField
+                                        key={field.key}
+                                        index={index}
+                                        onRemove={remove}
+                                        platformsOptions={platformsOptions}
+                                    />
+                                )
+                            })}
+                        </div>
                     </>
                 )}
             </CardContent>
-        </>
+        </ScrollArea>
     )
 }
