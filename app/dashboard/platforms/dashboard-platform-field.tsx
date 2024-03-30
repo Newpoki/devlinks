@@ -16,6 +16,7 @@ import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 import { Input } from '@/components/ui/input'
 import { DashboardFormValues, DashboardPlatformOption } from '../dashboard-schemas'
 import { DASHBOARD_PLATFORMS_URLS } from '../dashboard-constants'
+import { Button } from '@/components/ui/button'
 
 type DashboardPlatformFieldProps = {
     platformsOptions: DashboardPlatformOption[]
@@ -60,14 +61,9 @@ export const DashboardPlatformField = ({
                     <span className="text-[16px] font-bold leading-[150%]">{`Link #${index + 1}`}</span>
                 </div>
 
-                <button
-                    disabled={isSubmitting}
-                    className="text-b-m transition-opacity disabled:opacity-50"
-                    type="button"
-                    onClick={handleRemove}
-                >
+                <Button disabled={isSubmitting} type="button" onClick={handleRemove} variant="text">
                     Remove
-                </button>
+                </Button>
             </div>
 
             <FormField
