@@ -18,7 +18,7 @@ export const DashboardHeader = () => {
                 <h1 className="hidden text-[24px] font-bold md:block">devlinks</h1>
             </div>
 
-            <nav>
+            <nav className="flex items-center gap-3 md:gap-7">
                 <Link tabIndex={-1} href="/dashboard/platforms">
                     <Button
                         className="gap-2"
