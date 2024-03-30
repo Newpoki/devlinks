@@ -6,7 +6,11 @@ import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
 import { Profile, ProfilePlatform } from '@prisma/client'
-import { DashboardFormValues, DashboardPlatformOption } from './dashboard-schemas'
+import {
+    DashboardFormValues,
+    dashboardFormValuesSchema,
+    DashboardPlatformOption,
+} from './dashboard-schemas'
 import { updateDashboard } from './dashboard-actions'
 import { Card } from '@/components/ui/card'
 import { DashboardFooter } from './dashboard-footer'
@@ -14,6 +18,7 @@ import { DashboardDraftPreview } from './dashboard-draft-preview'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { SaveColored } from '@/components/icons/colored/save-colored'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -44,6 +49,7 @@ export const DashboardLayoutSub = ({
             // Having platformsOptions here is subOptimal, but didnt fay a better way to pass the available options
             platformsOptions: platforms,
         },
+        resolver: zodResolver(dashboardFormValuesSchema),
     })
 
     const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {

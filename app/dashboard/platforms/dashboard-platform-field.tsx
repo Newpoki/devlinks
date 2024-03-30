@@ -15,6 +15,7 @@ import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/for
 import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 import { Input } from '@/components/ui/input'
 import { DashboardFormValues, DashboardPlatformOption } from '../dashboard-schemas'
+import { DASHBOARD_PLATFORMS_URLS } from '../dashboard-constants'
 
 type DashboardPlatformFieldProps = {
     platformsOptions: DashboardPlatformOption[]
@@ -137,7 +138,7 @@ export const DashboardPlatformField = ({
                                 <Input
                                     {...field}
                                     value={field.value ?? ''}
-                                    placeholder="https://google.fr"
+                                    placeholder={DASHBOARD_PLATFORMS_URLS[fieldPlatform.name]}
                                     error={fieldState.error?.message}
                                 />
                             </FormControl>

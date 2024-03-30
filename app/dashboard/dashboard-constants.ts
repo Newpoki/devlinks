@@ -1,0 +1,16 @@
+export const DASHBOARD_PLATFORMS_URLS = {
+    GITHUB: 'https://github.com/',
+    FRONTEND_MENTOR: 'https://www.frontendmentor.io/profile/',
+    TWITTER: 'https://twitter.com/',
+    LINKEDIN: 'https://www.linkedin.com/in/',
+    YOUTUBE: 'https://www.youtube.com/channel/',
+    FACEBOOK: 'https://www.facebook.com/',
+    TWITCH: 'https://www.twitch.tv/',
+    DEVTO: 'https://dev.to/',
+    CODEWARS: 'https://www.codewars.com/users/',
+    CODEPEN: 'https://codepen.io/',
+    FREECODECAMP: 'https://www.freecodecamp.org/',
+    GITLAB: 'https://gitlab.com/',
+    HASNODE: 'https://hashnode.com/@',
+    STACK_OVERFLOW: 'https://stackoverflow.com/users/',
+} as const
