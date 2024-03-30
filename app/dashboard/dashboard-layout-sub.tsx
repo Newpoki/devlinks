@@ -1,7 +1,7 @@
 'use client'
 
 import { ControlledForm } from '@/components/controlled/controlled-form'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { SaveColored } from '@/components/icons/colored/save-colored'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { DashboardContextData, DashboardContextProvider } from './dashboard-context'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -41,16 +42,20 @@ export const DashboardLayoutSub = ({
                 firstName: profile.firstName ?? '',
                 lastName: profile.lastName ?? '',
                 email: profile.email ?? '',
-                // Replacing to get better image quality
-                pictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? '',
                 id: profile.userId,
             },
             platforms: profilePlatforms,
-            // Having platformsOptions here is subOptimal, but didnt fay a better way to pass the available options
-            platformsOptions: platforms,
         },
         resolver: zodResolver(dashboardFormValuesSchema),
     })
+
+    const dashboardContextData = useMemo<DashboardContextData>(() => {
+        return {
+            // Replacing `s` parameter to get better image quality
+            profilePictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? null,
+            platformsOptions: platforms,
+        }
+    }, [platforms, session.user.image])
 
     const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
         try {
@@ -63,24 +68,26 @@ export const DashboardLayoutSub = ({
     }, [])
 
     return (
-        <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
-            <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
-                <DashboardHeader />
+        <DashboardContextProvider value={dashboardContextData}>
+            <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
+                <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
+                    <DashboardHeader />
 
-                <main
-                    className={cn(
-                        'flex flex-1 flex-col overflow-hidden p-4 pt-0 md:p-0 lg:grid lg:grid-cols-[38fr_62fr] lg:gap-6'
-                    )}
-                >
-                    <DashboardDraftPreview />
+                    <main
+                        className={cn(
+                            'flex flex-1 flex-col overflow-hidden p-4 pt-0 md:p-0 lg:grid lg:grid-cols-[38fr_62fr] lg:gap-6'
+                        )}
+                    >
+                        <DashboardDraftPreview />
 
-                    <Card className="flex flex-1 flex-col overflow-hidden">
-                        {children}
+                        <Card className="flex flex-1 flex-col overflow-hidden">
+                            {children}
 
-                        <DashboardFooter />
-                    </Card>
-                </main>
-            </div>
-        </ControlledForm>
+                            <DashboardFooter />
+                        </Card>
+                    </main>
+                </div>
+            </ControlledForm>
+        </DashboardContextProvider>
     )
 }

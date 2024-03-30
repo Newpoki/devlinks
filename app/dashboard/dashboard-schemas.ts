@@ -29,10 +29,8 @@ export const dashboardFormValuesSchema = z.object({
         firstName: z.string(),
         lastName: z.string(),
         email: z.string(),
-        pictureUrl: z.string(),
         id: z.string(),
     }),
-    platformsOptions: z.array(dashboardPlatformOption),
     platforms: z.array(
         z
             // This would be better using regexp for this

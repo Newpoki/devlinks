@@ -6,13 +6,16 @@ import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DashboardDraftPreviewPlatform } from './dashboard-draft-preview-platform'
+import { DashboardContext } from './dashboard-context'
+import { useContext } from 'react'
 
 export const DashboardDraftPreview = () => {
     const { control } = useFormContext<DashboardFormValues>()
 
     const user = useWatch({ control, name: 'user' })
     const platforms = useWatch({ control, name: 'platforms' })
-    const platformsOptions = useWatch({ control, name: 'platformsOptions' })
+
+    const { profilePictureUrl, platformsOptions } = useContext(DashboardContext)
 
     const skeletonsArray =
         platforms.length >= 4
@@ -28,9 +31,9 @@ export const DashboardDraftPreview = () => {
                 >
                     <ScrollArea className="mr-2 flex w-full flex-col pl-10 pr-8">
                         <section className="mb-10 flex w-full flex-col items-center gap-6">
-                            {user.pictureUrl ? (
+                            {profilePictureUrl != null ? (
                                 <Image
-                                    src={user.pictureUrl.replace('=s96-c', '=s384-c')}
+                                    src={profilePictureUrl.replace('=s96-c', '=s384-c')}
                                     alt="User profile picture"
                                     width={93}
                                     height={93}

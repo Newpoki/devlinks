@@ -3,16 +3,18 @@
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Paper } from '@/components/ui/paper'
 import Image from 'next/image'
-import { useFormContext, useWatch } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { DashboardFormValues } from '../dashboard-schemas'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useContext } from 'react'
+import { DashboardContext } from '../dashboard-context'
 
 export default function DashboardProfilePage() {
     const { control, formState } = useFormContext<DashboardFormValues>()
 
-    const pictureUrl = useWatch({ control, name: 'user.pictureUrl' })
+    const { profilePictureUrl } = useContext(DashboardContext)
 
     const { isSubmitting } = formState
 
@@ -30,9 +32,9 @@ export default function DashboardProfilePage() {
                     <h4 className="mb-4 flex-shrink-0 text-b-m md:w-64">Profile picture</h4>
 
                     <div className="mb-6 flex-shrink-0 md:mr-6">
-                        {pictureUrl ? (
+                        {profilePictureUrl != null ? (
                             <Image
-                                src={pictureUrl.replace('=s96-c', '=s384-c')}
+                                src={profilePictureUrl.replace('=s96-c', '=s384-c')}
                                 alt="User profile picture"
                                 width={193}
                                 height={193}

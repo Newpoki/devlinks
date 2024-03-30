@@ -2,17 +2,18 @@
 
 import { Button } from '@/components/ui/button'
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
-import { useCallback } from 'react'
+import { useFieldArray, useFormContext } from 'react-hook-form'
+import { useCallback, useContext } from 'react'
 import { DashboardFormValues } from '../dashboard-schemas'
 import { DashboardNoPlatforms } from './dashboard-no-platforms'
 import { DashboardPlatformField } from './dashboard-platform-field'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { DashboardContext } from '../dashboard-context'
 
 export default function DashboardPlatforms() {
     const { control, formState } = useFormContext<DashboardFormValues>()
 
-    const platformsOptions = useWatch({ control, name: 'platformsOptions' })
+    const { platformsOptions } = useContext(DashboardContext)
 
     const { fields, append, remove } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
