@@ -27,10 +27,12 @@ export const DashboardPlatformField = ({
     platformsOptions,
     onRemove,
 }: DashboardPlatformFieldProps) => {
-    const { control } = useFormContext<DashboardFormValues>()
+    const { control, formState } = useFormContext<DashboardFormValues>()
 
     const platforms = useWatch({ control, name: 'platforms' })
     const fieldPlatform = useWatch({ control, name: `platforms.${index}` })
+
+    const { isSubmitting } = formState
 
     // We're removing options that are already selected
     // Except the one that might be selected by the field
@@ -57,13 +59,19 @@ export const DashboardPlatformField = ({
                     <span className="text-[16px] font-bold leading-[150%]">{`Link #${index + 1}`}</span>
                 </div>
 
-                <button className="text-b-m" type="button" onClick={handleRemove}>
+                <button
+                    disabled={isSubmitting}
+                    className="text-b-m transition-opacity disabled:opacity-50"
+                    type="button"
+                    onClick={handleRemove}
+                >
                     Remove
                 </button>
             </div>
 
             <FormField
                 control={control}
+                disabled={isSubmitting}
                 name={`platforms.${index}.name`}
                 render={({ field: { ref, onChange, ...othersField } }) => {
                     const selectedOption = platformsOptions.find(
@@ -120,6 +128,7 @@ export const DashboardPlatformField = ({
             <FormField
                 control={control}
                 name={`platforms.${index}.url`}
+                disabled={isSubmitting}
                 render={({ field, fieldState }) => {
                     return (
                         <FormItem className="w-full">

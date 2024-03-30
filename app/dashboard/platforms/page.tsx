@@ -10,7 +10,7 @@ import { DashboardPlatformField } from './dashboard-platform-field'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function DashboardPlatforms() {
-    const { control } = useFormContext<DashboardFormValues>()
+    const { control, formState } = useFormContext<DashboardFormValues>()
 
     const platformsOptions = useWatch({ control, name: 'platformsOptions' })
 
@@ -19,6 +19,8 @@ export default function DashboardPlatforms() {
         name: 'platforms', // unique name for your Field Array
         keyName: 'key',
     })
+
+    const { isSubmitting } = formState
 
     // We don't want to add many times the same platform, so the new added platform
     // must not already be there
@@ -51,7 +53,7 @@ export default function DashboardPlatforms() {
 
             <CardContent className="flex flex-1 flex-col gap-6 overflow-hidden">
                 <Button
-                    disabled={availablePlatformsToAdd.length === 0}
+                    disabled={availablePlatformsToAdd.length === 0 || isSubmitting}
                     className="w-full"
                     variant="outline"
                     type="button"
