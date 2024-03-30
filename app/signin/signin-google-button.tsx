@@ -22,6 +22,7 @@ export const SigninGoogleButton = () => {
             aria-label="Sign in with Google"
             className="flex items-center gap-3 rounded-md bg-[#202124] p-0.5 pr-3 transition-all duration-300 hover:bg-[#555658] disabled:opacity-25"
             disabled={isSignin}
+            type="button"
         >
             <div className="flex h-9 w-9 items-center justify-center rounded-l bg-white">
                 <GoogleColored />

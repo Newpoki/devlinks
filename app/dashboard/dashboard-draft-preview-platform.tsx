@@ -128,6 +128,7 @@ export const DashboardDraftPreviewPlatform = ({
                 borderColor: mapping.borderColor,
                 color: mapping.color,
             }}
+            type="button"
         >
             <span>{mapping.icon}</span>
             <div>{platform.label}</div>
