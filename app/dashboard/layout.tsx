@@ -50,69 +50,6 @@ const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<Prof
 
     return userProfilePlatforms
 }
-// TODO: Delete me
-// const add = async () => {
-//     const user = await prisma.platform.createMany({
-//         data: [
-//             {
-//                 label: 'GitHub',
-//                 name: 'GITHUB',
-//             },
-//             {
-//                 label: 'Frontend Mentor',
-//                 name: 'FRONTEND_MENTOR',
-//             },
-//             {
-//                 label: 'Twitter',
-//                 name: 'TWITTER',
-//             },
-//             {
-//                 label: 'LinkedIn',
-//                 name: 'LINKEDIN',
-//             },
-//             {
-//                 label: 'YouTube',
-//                 name: 'YOUTUBE',
-//             },
-//             {
-//                 label: 'Facebook',
-//                 name: 'FACEBOOK',
-//             },
-//             {
-//                 label: 'Twitch',
-//                 name: 'TWITCH',
-//             },
-//             {
-//                 label: 'Dev.to',
-//                 name: 'DEVTO',
-//             },
-//             {
-//                 label: 'Codewars',
-//                 name: 'CODEWARS',
-//             },
-//             {
-//                 label: 'Codepen',
-//                 name: 'CODEPEN',
-//             },
-//             {
-//                 label: 'freeCodeCamp',
-//                 name: 'FREECODECAMP',
-//             },
-//             {
-//                 label: 'GitLab',
-//                 name: 'GITLAB',
-//             },
-//             {
-//                 label: 'Hashnode',
-//                 name: 'HASNODE',
-//             },
-//             {
-//                 label: 'Stack Overflow',
-//                 name: 'STACK_OVERFLOW',
-//             },
-//         ],
-//     })
-// }
 
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
     const session = await getRequiredAuthSession()

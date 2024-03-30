@@ -34,7 +34,7 @@ export default function DashboardProfilePage() {
                     <div className="mb-6 flex-shrink-0 md:mr-6">
                         {profilePictureUrl != null ? (
                             <Image
-                                src={profilePictureUrl.replace('=s96-c', '=s384-c')}
+                                src={profilePictureUrl}
                                 alt="User profile picture"
                                 width={193}
                                 height={193}

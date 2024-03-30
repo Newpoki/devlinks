@@ -33,7 +33,7 @@ export const DashboardDraftPreview = () => {
                         <section className="mb-10 flex w-full flex-col items-center gap-6">
                             {profilePictureUrl != null ? (
                                 <Image
-                                    src={profilePictureUrl.replace('=s96-c', '=s384-c')}
+                                    src={profilePictureUrl}
                                     alt="User profile picture"
                                     width={93}
                                     height={93}

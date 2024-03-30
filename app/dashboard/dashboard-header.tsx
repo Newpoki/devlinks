@@ -5,10 +5,15 @@ import { LogoColored } from '@/components/icons/colored/logo-colored'
 import { Eye } from '@/components/icons/eye'
 import { Profile } from '@/components/icons/profile'
 import { Button } from '@/components/ui/button'
+import { Profile as IProfile } from '@prisma/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export const DashboardHeader = () => {
+type DashboardHeaderProps = {
+    profile: IProfile
+}
+
+export const DashboardHeader = ({ profile }: DashboardHeaderProps) => {
     const pathname = usePathname()
 
     return (
@@ -44,10 +49,12 @@ export const DashboardHeader = () => {
                 </Link>
             </nav>
 
-            <Button className="gap-2 px-4 md:px-[27px]" variant="outline" type="button">
-                <Eye className="md:hidden" />
-                <h2 className="hidden text-h-s md:inline-block">Preview</h2>
-            </Button>
+            <Link tabIndex={-1} href={`/preview/${profile.userId}`}>
+                <Button className="gap-2 px-4 md:px-[27px]" variant="outline" type="button">
+                    <Eye className="md:hidden" />
+                    <h2 className="hidden text-h-s md:inline-block">Preview</h2>
+                </Button>
+            </Link>
         </header>
     )
 }

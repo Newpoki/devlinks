@@ -59,6 +59,7 @@ export const DashboardLayoutSub = ({
 
     const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
         try {
+            console.log({ formValues })
             await updateDashboard(formValues)
 
             toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })
@@ -71,7 +72,7 @@ export const DashboardLayoutSub = ({
         <DashboardContextProvider value={dashboardContextData}>
             <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
                 <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
-                    <DashboardHeader />
+                    <DashboardHeader profile={profile} />
 
                     <main
                         className={cn(

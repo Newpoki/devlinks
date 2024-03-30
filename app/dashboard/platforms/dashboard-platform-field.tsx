@@ -1,7 +1,7 @@
 import { Paper } from '@/components/ui/paper'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { DragHandle } from '@/components/icons/drag-handle'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -29,7 +29,8 @@ export const DashboardPlatformField = ({
     platformsOptions,
     onRemove,
 }: DashboardPlatformFieldProps) => {
-    const { control, formState } = useFormContext<DashboardFormValues>()
+    const [isMounted, setIsMouted] = useState(false)
+    const { control, formState, setValue } = useFormContext<DashboardFormValues>()
 
     const platforms = useWatch({ control, name: 'platforms' })
     const fieldPlatform = useWatch({ control, name: `platforms.${index}` })
@@ -53,6 +54,14 @@ export const DashboardPlatformField = ({
         onRemove(index)
     }, [index, onRemove])
 
+    useEffect(() => {
+        setIsMouted(true)
+    }, [])
+
+    if (isMounted === false) {
+        return null
+    }
+
     return (
         <Paper className="gap-3">
             <div className="flex items-center justify-between text-grey-500">
@@ -75,11 +84,31 @@ export const DashboardPlatformField = ({
                         (platformOption) => platformOption.name === othersField.value
                     )
 
+                    console.log({ othersField })
+
+                    const handleChangePlatforms =
+                        (onChange: (value: string) => void) => (value: string) => {
+                            const selectedPlatform = platformsOptions.find(
+                                (option) => option.name === value
+                            )
+
+                            if (selectedPlatform == null) {
+                                return
+                            }
+
+                            // As select is only chaging the url, we must manually update the id
+                            setValue(`platforms.${index}.id`, selectedPlatform.id)
+                            onChange(value)
+                        }
+
                     return (
                         <FormItem className="w-full">
                             <Label>Platform</Label>
                             <FormControl>
-                                <Select {...othersField} onValueChange={onChange}>
+                                <Select
+                                    {...othersField}
+                                    onValueChange={handleChangePlatforms(onChange)}
+                                >
                                     <SelectTrigger className="flex w-full">
                                         {selectedOption != null && (
                                             <DashboardPlatformFieldIcon
