@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/sonner'
 
 // Using local fonts instead of NextFont because there is an issue with InstrumentSans
 const fontSans = localFont({
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 )}
             >
                 {children}
+                <Toaster />
             </body>
         </html>
     )

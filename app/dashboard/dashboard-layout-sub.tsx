@@ -12,6 +12,8 @@ import { Card } from '@/components/ui/card'
 import { DashboardFooter } from './dashboard-footer'
 import { DashboardDraftPreview } from './dashboard-draft-preview'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
+import { SaveColored } from '@/components/icons/colored/save-colored'
 
 type DashboardLayoutSubProps = {
     children: React.ReactNode
@@ -45,7 +47,13 @@ export const DashboardLayoutSub = ({
     })
 
     const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
-        await updateDashboard(formValues)
+        try {
+            await updateDashboard(formValues)
+
+            toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })
+        } catch (error) {
+            console.log(error)
+        }
     }, [])
 
     return (
