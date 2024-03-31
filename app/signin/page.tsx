@@ -13,19 +13,17 @@ export default async function Signin() {
     }
 
     return (
-        <main>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Login</CardTitle>
-                    <CardDescription>
-                        Login with your Google account to get back into the app
-                    </CardDescription>
-                </CardHeader>
+        <Card>
+            <CardHeader>
+                <CardTitle>Login</CardTitle>
+                <CardDescription>
+                    Login with your Google account to get back into the app
+                </CardDescription>
+            </CardHeader>
 
-                <CardFooter className="justify-end">
-                    <SigninGoogleButton />
-                </CardFooter>
-            </Card>
-        </main>
+            <CardFooter className="justify-end">
+                <SigninGoogleButton />
+            </CardFooter>
+        </Card>
     )
 }
