@@ -24,12 +24,13 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
         })
 
         await prisma.profilePlatform.createMany({
-            data: formValues.platforms.map((platform) => {
+            data: formValues.platforms.map((platform, index) => {
                 return {
                     platformId: platform.platformId,
                     profileId: userProfile.id,
                     url: platform.url,
                     name: platform.name,
+                    order: index,
                 }
             }),
         })

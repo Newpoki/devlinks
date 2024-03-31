@@ -65,6 +65,7 @@ model ProfilePlatform {
     profile    Profile      @relation(fields: [profileId], references: [id])
     url        String
     name       PlatformName
+    order      Int
 }
 
 model Platform {

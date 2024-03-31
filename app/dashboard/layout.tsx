@@ -45,6 +45,9 @@ const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<Prof
         where: {
             profileId,
         },
+        orderBy: {
+            order: 'asc',
+        },
     })
 
     return userProfilePlatforms

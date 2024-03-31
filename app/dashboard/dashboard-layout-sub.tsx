@@ -64,7 +64,6 @@ export const DashboardLayoutSub = ({
 
     const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
         try {
-            console.log({ formValues })
             await updateDashboard(formValues)
 
             toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })

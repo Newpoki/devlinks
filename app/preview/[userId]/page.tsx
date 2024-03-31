@@ -11,24 +11,28 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 export const revalidate = 0
 
 const fetchUserProfile = async (userId: string) => {
-    const profile = await prisma.profile.findUnique({
-        where: {
-            userId,
-        },
-        select: {
-            id: true,
-            user: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-        },
-    })
+    try {
+        const profile = await prisma.profile.findUnique({
+            where: {
+                userId,
+            },
+            select: {
+                id: true,
+                user: true,
+                firstName: true,
+                lastName: true,
+                email: true,
+            },
+        })
 
-    if (profile == null) {
+        if (profile == null) {
+            notFound()
+        }
+
+        return profile
+    } catch {
         notFound()
     }
-
-    return profile
 }
 
 const fetchUserProfilePlatforms = async (profileId: Profile['id']) => {
