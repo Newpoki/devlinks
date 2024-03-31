@@ -75,7 +75,8 @@ export const DashboardDraftPreview = () => {
                                 return (
                                     <DashboardDraftPreviewPlatform
                                         key={`${platform.name}-${platform.url}`}
-                                        platform={platformOption}
+                                        name={platform.name}
+                                        url={platform.url}
                                     />
                                 )
                             })}

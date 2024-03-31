@@ -69,7 +69,6 @@ model ProfilePlatform {
 
 model Platform {
     id              String            @id @default(auto()) @map("_id") @db.ObjectId
-    label           String
     name            PlatformName
     profileIds      String[]          @db.ObjectId
     profiles        Profile[]         @relation(fields: [profileIds], references: [id])

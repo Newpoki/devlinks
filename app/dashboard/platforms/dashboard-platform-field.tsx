@@ -1,7 +1,7 @@
 import { Paper } from '@/components/ui/paper'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { DragHandle } from '@/components/icons/drag-handle'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import {
     Select,
     SelectContent,
@@ -15,7 +15,7 @@ import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/for
 import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 import { Input } from '@/components/ui/input'
 import { DashboardFormValues, DashboardPlatformOption } from '../dashboard-schemas'
-import { DASHBOARD_PLATFORMS_URLS } from '../dashboard-constants'
+import { DASHBOARD_PLATFORMS_MAPPING } from '../dashboard-constants'
 import { Button } from '@/components/ui/button'
 
 type DashboardPlatformFieldProps = {
@@ -29,7 +29,6 @@ export const DashboardPlatformField = ({
     platformsOptions,
     onRemove,
 }: DashboardPlatformFieldProps) => {
-    const [isMounted, setIsMouted] = useState(false)
     const { control, formState, setValue } = useFormContext<DashboardFormValues>()
 
     const platforms = useWatch({ control, name: 'platforms' })
@@ -54,14 +53,6 @@ export const DashboardPlatformField = ({
         onRemove(index)
     }, [index, onRemove])
 
-    useEffect(() => {
-        setIsMouted(true)
-    }, [])
-
-    if (isMounted === false) {
-        return null
-    }
-
     return (
         <Paper className="gap-3">
             <div className="flex items-center justify-between text-grey-500">
@@ -80,12 +71,6 @@ export const DashboardPlatformField = ({
                 disabled={isSubmitting}
                 name={`platforms.${index}.name`}
                 render={({ field: { ref, onChange, ...othersField } }) => {
-                    const selectedOption = platformsOptions.find(
-                        (platformOption) => platformOption.name === othersField.value
-                    )
-
-                    console.log({ othersField })
-
                     const handleChangePlatforms =
                         (onChange: (value: string) => void) => (value: string) => {
                             const selectedPlatform = platformsOptions.find(
@@ -97,7 +82,8 @@ export const DashboardPlatformField = ({
                             }
 
                             // As select is only chaging the url, we must manually update the id
-                            setValue(`platforms.${index}.id`, selectedPlatform.id)
+                            // Here should all subfield of `platforms.{index}` but updated
+                            setValue(`platforms.${index}.platformId`, selectedPlatform.id)
                             onChange(value)
                         }
 
@@ -110,11 +96,7 @@ export const DashboardPlatformField = ({
                                     onValueChange={handleChangePlatforms(onChange)}
                                 >
                                     <SelectTrigger className="flex w-full">
-                                        {selectedOption != null && (
-                                            <DashboardPlatformFieldIcon
-                                                name={selectedOption.name}
-                                            />
-                                        )}
+                                        <DashboardPlatformFieldIcon name={fieldPlatform.name} />
 
                                         <SelectValue />
                                     </SelectTrigger>
@@ -136,7 +118,10 @@ export const DashboardPlatformField = ({
                                                             />
                                                         }
                                                     >
-                                                        {option.label}
+                                                        {
+                                                            DASHBOARD_PLATFORMS_MAPPING[option.name]
+                                                                .label
+                                                        }
                                                     </SelectItem>
 
                                                     {!isLast && <SelectSeparator />}
@@ -163,7 +148,9 @@ export const DashboardPlatformField = ({
                                 <Input
                                     {...field}
                                     value={field.value ?? ''}
-                                    placeholder={DASHBOARD_PLATFORMS_URLS[fieldPlatform.name]}
+                                    placeholder={
+                                        DASHBOARD_PLATFORMS_MAPPING[fieldPlatform.name].urlPattern
+                                    }
                                     error={fieldState.error?.message}
                                 />
                             </FormControl>

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { DASHBOARD_PLATFORMS_URLS } from './dashboard-constants'
+import { DASHBOARD_PLATFORMS_MAPPING } from './dashboard-constants'
 
 const platformName = z.enum([
     'GITHUB',
@@ -20,7 +20,6 @@ const platformName = z.enum([
 
 const dashboardPlatformOption = z.object({
     id: z.string(),
-    label: z.string(),
     name: platformName,
 })
 
@@ -36,100 +35,104 @@ export const dashboardFormValuesSchema = z.object({
             // This would be better using regexp for this
             // but I think this is a bit too much, and I don't exactly know which chars are allowed
             .object({
+                platformId: z.string(),
                 name: z.literal('GITHUB'),
-                url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.GITHUB),
-                id: z.string(),
+                url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.GITHUB.urlPattern),
             })
 
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('FRONTEND_MENTOR'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.FRONTEND_MENTOR),
-                    id: z.string(),
+                    url: z
+                        .string()
+                        .startsWith(DASHBOARD_PLATFORMS_MAPPING.FRONTEND_MENTOR.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('TWITTER'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.TWITTER),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.TWITTER.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('LINKEDIN'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.LINKEDIN),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.LINKEDIN.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('YOUTUBE'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.YOUTUBE),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.YOUTUBE.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('FACEBOOK'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.FACEBOOK),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.FACEBOOK.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('TWITCH'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.TWITCH),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.TWITCH.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('DEVTO'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.DEVTO),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.DEVTO.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('CODEWARS'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.CODEWARS),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.CODEWARS.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('CODEPEN'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.CODEPEN),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.CODEPEN.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('FREECODECAMP'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.FREECODECAMP),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.FREECODECAMP.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('GITLAB'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.GITLAB),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.GITLAB.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('HASNODE'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.HASNODE),
-                    id: z.string(),
+                    url: z.string().startsWith(DASHBOARD_PLATFORMS_MAPPING.HASNODE.urlPattern),
                 })
             )
             .or(
                 z.object({
+                    platformId: z.string(),
                     name: z.literal('STACK_OVERFLOW'),
-                    url: z.string().startsWith(DASHBOARD_PLATFORMS_URLS.STACK_OVERFLOW),
-                    id: z.string(),
+                    url: z
+                        .string()
+                        .startsWith(DASHBOARD_PLATFORMS_MAPPING.STACK_OVERFLOW.urlPattern),
                 })
             )
     ),

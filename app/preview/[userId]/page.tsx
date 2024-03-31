@@ -46,6 +46,7 @@ const fetchUserProfilePlatforms = async (profileId: Profile['id']) => {
         select: {
             platform: true,
             url: true,
+            id: true,
         },
     })
 
@@ -101,8 +102,9 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
                 {userProfilePlatforms.map((userProfilePlatform) => {
                     return (
                         <DashboardDraftPreviewPlatform
-                            key={userProfilePlatform.platform.name}
-                            platform={userProfilePlatform.platform}
+                            key={userProfilePlatform.id}
+                            name={userProfilePlatform.platform.name}
+                            url={userProfilePlatform.url}
                         />
                     )
                 })}

@@ -33,7 +33,6 @@ const fetchAvailablePlatforms = async (): Promise<DashboardPlatformOption[]> => 
     const platforms = await prisma.platform.findMany({
         select: {
             name: true,
-            label: true,
             id: true,
         },
     })

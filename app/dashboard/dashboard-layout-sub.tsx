@@ -44,7 +44,12 @@ export const DashboardLayoutSub = ({
                 email: profile.email ?? '',
                 id: profile.userId,
             },
-            platforms: profilePlatforms,
+            platforms: profilePlatforms.map((profilePlatform) => ({
+                id: profilePlatform.id,
+                name: profilePlatform.name,
+                url: profilePlatform.url,
+                platformId: profilePlatform.platformId,
+            })),
         },
         resolver: zodResolver(dashboardFormValuesSchema),
     })
