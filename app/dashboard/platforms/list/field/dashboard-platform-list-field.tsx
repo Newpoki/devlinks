@@ -68,11 +68,14 @@ export const DashboardPlatformListField = ({
                         {...attributes}
                         {...listeners}
                         type="button"
-                        className={cn('h-3 w-3 cursor-grab', {
-                            'cursor-grabbing': isDragging,
-                            'cursor-default': isDraggingDisabled,
-                            hidden: platforms.length <= 1,
-                        })}
+                        className={cn(
+                            'h-3 w-3 cursor-grab transition-transform hover:scale-150 focus:outline-none',
+                            {
+                                'cursor-grabbing': isDragging,
+                                'cursor-default': isDraggingDisabled,
+                                hidden: platforms.length <= 1,
+                            }
+                        )}
                     >
                         <DragHandle />
                     </button>

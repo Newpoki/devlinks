@@ -66,15 +66,13 @@ export const DashboardPlatformList = ({
         [swap]
     )
 
-    // useEffect only runs on clientSide, so we're sure to wait for initial server rendering
-    // before rendering these fields. This is to avoid field's select flickering on initial render
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
     if (!isMounted) {
-        // Explain that display loader to do not have select text popping after few seconds
-        // And avoid dnd-kit and ssr error in chrome
+        // Select component can't render selected value when rendered on server
+        // Displaying a skeleton until we're on client side
         return <DashboardPlatformListSkeleton />
     }
 

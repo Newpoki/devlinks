@@ -65,11 +65,12 @@ export const DashboardHeader = ({ profile }: DashboardHeaderProps) => {
 
                 <Button
                     variant="text"
-                    className="px-4 md:px-[27px]"
+                    className="flex items-center gap-2 px-4 md:px-[27px]    "
                     type="button"
                     onClick={onSignout}
                 >
                     <Logout />
+                    <h2 className="hidden text-h-s md:inline-block">Sign out</h2>
                 </Button>
             </div>
         </header>
