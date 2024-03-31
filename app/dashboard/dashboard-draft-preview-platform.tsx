@@ -17,7 +17,11 @@ export const DashboardDraftPreviewPlatform = ({
     const mapping = DASHBOARD_PLATFORMS_MAPPING[name]
 
     return (
-        <a href={url} target="_blank" className="w-full">
+        <a
+            href={url}
+            target="_blank"
+            className="w-full rounded-lg border-2 border-transparent transition-all hover:brightness-200 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-offset-purple-500 focus:brightness-200"
+        >
             <button
                 className={cn(
                     'flex h-14 w-full items-center gap-2 rounded-lg border px-4 py-[18px] text-b-m',

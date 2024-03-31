@@ -29,7 +29,7 @@ export const DashboardDraftPreview = () => {
                     className="flex h-[631px] w-[307px] py-14"
                     style={{ backgroundImage: `url(${mobilePreviewFrame.src})` }}
                 >
-                    <ScrollArea className="mr-2 flex w-full flex-col pl-10 pr-8">
+                    <ScrollArea className="mr-2 flex w-full flex-col pl-8 pr-6">
                         <section className="mb-10 flex w-full flex-col items-center gap-6">
                             {profilePictureUrl != null ? (
                                 <Image
@@ -62,7 +62,7 @@ export const DashboardDraftPreview = () => {
                             </div>
                         </section>
 
-                        <section className="flex w-full flex-col gap-5">
+                        <section className="flex w-full flex-col gap-5 px-2">
                             {platforms.map((platform) => {
                                 const platformOption = platformsOptions.find(
                                     (option) => option.name === platform.name

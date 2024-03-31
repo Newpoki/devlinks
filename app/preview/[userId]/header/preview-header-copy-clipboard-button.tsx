@@ -15,7 +15,7 @@ export const PreviewHeaderCopyClipboardButton = () => {
     }, [])
 
     return (
-        <Button type="button" className="w-full" onClick={handleClick}>
+        <Button type="button" className="w-full md:w-auto" onClick={handleClick}>
             Share Link
         </Button>
     )
