@@ -7,35 +7,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-const fetchUserImage = async (userId: string): Promise<string | null> => {
-    const user = await prisma.user.findUnique({
-        where: {
-            id: userId,
-        },
-        select: {
-            image: true,
-        },
-    })
+export const revalidate = 0
 
-    if (user == null) {
-        notFound()
-    }
-
-    return user.image
-}
-
-const fetchUserProfile = async (userId: string): Promise<Profile> => {
-    const user = await prisma.profile.findUnique({
+const fetchUserProfile = async (userId: string) => {
+    const profile = await prisma.profile.findUnique({
         where: {
             userId,
         },
+        select: {
+            id: true,
+            user: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+        },
     })
 
-    if (user == null) {
+    if (profile == null) {
         notFound()
     }
 
-    return user
+    return profile
 }
 
 const fetchUserProfilePlatforms = async (profileId: Profile['id']) => {
@@ -60,7 +52,6 @@ type PreviewPageProps = {
 }
 
 export default async function PreviewPage({ params }: PreviewPageProps) {
-    const userImage = await fetchUserImage(params.userId)
     const userProfile = await fetchUserProfile(params.userId)
     const userProfilePlatforms = await fetchUserProfilePlatforms(userProfile.id)
 
@@ -79,9 +70,9 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
 
             <section className="mx-auto mb-14 flex w-2/3 flex-col items-center gap-6">
                 <div className="h-[108px] w-[108px] rounded-full border-4 border-purple-500">
-                    {userImage != null ? (
+                    {userProfile.user.image != null ? (
                         <Image
-                            src={userImage.replace('=s96-c', '=s384-c')}
+                            src={userProfile.user.image.replace('=s96-c', '=s384-c')}
                             alt="User profile picture"
                             width={108}
                             height={108}

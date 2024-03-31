@@ -1,6 +1,7 @@
 import { PlatformName } from '@prisma/client'
 import { DASHBOARD_PLATFORMS_MAPPING } from './dashboard-constants'
 import { cn } from '@/lib/utils'
+import { ArrowRight } from '@/components/icons/arrow-right'
 
 type DashboardDraftPreviewPlatformProps = {
     className?: string
@@ -16,7 +17,7 @@ export const DashboardDraftPreviewPlatform = ({
     const mapping = DASHBOARD_PLATFORMS_MAPPING[name]
 
     return (
-        <a href={url} target="_blank">
+        <a href={url} target="_blank" className="w-full">
             <button
                 className={cn(
                     'flex h-14 w-full items-center gap-2 rounded-lg border px-4 py-[18px] text-b-m',
@@ -32,6 +33,7 @@ export const DashboardDraftPreviewPlatform = ({
             >
                 <span>{<mapping.icon />}</span>
                 <div>{mapping.label}</div>
+                <ArrowRight className="ml-auto" />
             </button>
         </a>
     )

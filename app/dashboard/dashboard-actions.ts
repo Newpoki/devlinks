@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { DashboardFormValues } from './dashboard-schemas'
+import { revalidatePath } from 'next/cache'
 
 export const updateDashboard = async (formValues: DashboardFormValues) => {
     try {
@@ -32,6 +33,9 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
                 }
             }),
         })
+
+        // Remove cache from /dashboard url, otherwise we could have some cache when going back from preview url
+        revalidatePath('/dashboard')
     } catch (error) {
         console.log(error)
     }
