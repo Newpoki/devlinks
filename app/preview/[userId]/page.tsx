@@ -82,15 +82,18 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
             </CardHeader>
 
             <CardContent className="px-[70px] pb-0">
-                {userProfilePlatforms.map((userProfilePlatform) => {
-                    return (
-                        <DashboardDraftPreviewPlatform
-                            key={userProfilePlatform.id}
-                            name={userProfilePlatform.platform.name}
-                            url={userProfilePlatform.url}
-                        />
-                    )
-                })}
+                <ul className="flex w-full flex-col gap-5">
+                    {userProfilePlatforms.map((userProfilePlatform) => {
+                        return (
+                            <li key={userProfilePlatform.id} className="w-full">
+                                <DashboardDraftPreviewPlatform
+                                    name={userProfilePlatform.platform.name}
+                                    url={userProfilePlatform.url}
+                                />
+                            </li>
+                        )
+                    })}
+                </ul>
             </CardContent>
         </Card>
     )

@@ -62,7 +62,7 @@ export const DashboardDraftPreview = () => {
                             </div>
                         </section>
 
-                        <section className="flex w-full flex-col gap-5 px-2">
+                        <ul className="flex w-full flex-col gap-5 px-2">
                             {platforms.map((platform) => {
                                 const platformOption = platformsOptions.find(
                                     (option) => option.name === platform.name
@@ -73,18 +73,23 @@ export const DashboardDraftPreview = () => {
                                 }
 
                                 return (
-                                    <DashboardDraftPreviewPlatform
-                                        key={`${platform.name}-${platform.url}`}
-                                        name={platform.name}
-                                        url={platform.url}
-                                    />
+                                    <li key={platform.platformId}>
+                                        <DashboardDraftPreviewPlatform
+                                            name={platform.name}
+                                            url={platform.url}
+                                        />
+                                    </li>
                                 )
                             })}
 
                             {skeletonsArray.map((value) => {
-                                return <Skeleton key={value} className="h-14 w-full rounded-lg" />
+                                return (
+                                    <li key={value}>
+                                        <Skeleton className="h-14 w-full rounded-lg" />
+                                    </li>
+                                )
                             })}
-                        </section>
+                        </ul>
                     </ScrollArea>
                 </div>
             </CardContent>

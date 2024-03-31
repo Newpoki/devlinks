@@ -67,18 +67,19 @@ export default function DashboardPlatforms() {
                     <DashboardNoPlatforms />
                 ) : (
                     <>
-                        <div className="flex flex-col gap-6">
+                        <ul className="flex flex-col gap-6">
                             {fields.map((field, index) => {
                                 return (
-                                    <DashboardPlatformField
-                                        key={field.key}
-                                        index={index}
-                                        onRemove={remove}
-                                        platformsOptions={platformsOptions}
-                                    />
+                                    <li key={field.key}>
+                                        <DashboardPlatformField
+                                            index={index}
+                                            onRemove={remove}
+                                            platformsOptions={platformsOptions}
+                                        />
+                                    </li>
                                 )
                             })}
-                        </div>
+                        </ul>
                     </>
                 )}
             </CardContent>
