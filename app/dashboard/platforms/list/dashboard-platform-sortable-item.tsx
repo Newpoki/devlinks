@@ -5,7 +5,7 @@ import { DashboardFormValues, DashboardPlatformOption } from '../../dashboard-sc
 import { FieldArrayWithId, UseFieldArrayRemove } from 'react-hook-form'
 import { useMemo } from 'react'
 import { CSS } from '@dnd-kit/utilities'
-import { DashboardPlatformListField } from './dashboard-platform-list-field'
+import { DashboardPlatformListField } from './field/dashboard-platform-list-field'
 
 type DashboardPlatformSortableItemProps = {
     field: FieldArrayWithId<DashboardFormValues, 'platforms', 'id'>
