@@ -14,6 +14,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { FieldArrayWithId, UseFieldArrayRemove, UseFieldArraySwap } from 'react-hook-form'
 import { DashboardFormValues, DashboardPlatformOption } from '../../dashboard-schemas'
 import { DashboardPlatformSortableItem } from './dashboard-platform-sortable-item'
+import { DashboardPlatformListSkeleton } from './dashboard-platform-list-skeleton'
 
 type DashboardPlatformListProps = {
     fields: FieldArrayWithId<DashboardFormValues, 'platforms', 'id'>[]
@@ -63,12 +64,16 @@ export const DashboardPlatformList = ({
         [swap]
     )
 
+    // useEffect only runs on clientSide, so we're sure to wait for initial server rendering
+    // before rendering these fields. This is to avoid field's select flickering on initial render
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
     if (!isMounted) {
-        return null
+        // Explain that display loader to do not have select text popping after few seconds
+        // And avoid dnd-kit and ssr error in chrome
+        return <DashboardPlatformListSkeleton />
     }
 
     return (
