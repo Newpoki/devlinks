@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { PreviewHeaderCopyClipboardButton } from './preview-header-copy-clipboard-button'
 
 export const revalidate = 0
 
@@ -70,9 +71,8 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
                             Back to Editor
                         </Button>
                     </Link>
-                    <Button type="button" className="w-full">
-                        Share Link
-                    </Button>
+
+                    <PreviewHeaderCopyClipboardButton />
                 </header>
             )}
 
