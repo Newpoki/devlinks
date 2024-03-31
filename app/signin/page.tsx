@@ -22,7 +22,7 @@ export default async function Signin() {
                     </CardDescription>
                 </CardHeader>
 
-                <CardFooter>
+                <CardFooter className="justify-end">
                     <SigninGoogleButton />
                 </CardFooter>
             </Card>
