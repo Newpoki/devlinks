@@ -45,6 +45,8 @@ export const DashboardPlatformList = ({
 
     const sensors = useSensors(mouseSensor, touchSensor)
 
+    const isDraggingDisabled = fields.length <= 1
+
     const handleDragOver = useCallback(
         ({ active, over }: DragOverEvent) => {
             if (over == null) {
@@ -82,7 +84,11 @@ export const DashboardPlatformList = ({
             collisionDetection={closestCenter}
             onDragOver={handleDragOver}
         >
-            <SortableContext items={fields} strategy={verticalListSortingStrategy}>
+            <SortableContext
+                items={fields}
+                strategy={verticalListSortingStrategy}
+                disabled={fields.length <= 1}
+            >
                 <ul className="flex flex-col gap-6">
                     {fields.map((field, index) => {
                         return (
@@ -93,6 +99,7 @@ export const DashboardPlatformList = ({
                                     index={index}
                                     platformsOptions={platformsOptions}
                                     onRemove={onRemove}
+                                    isDraggingDisabled={isDraggingDisabled}
                                 />
                             </li>
                         )

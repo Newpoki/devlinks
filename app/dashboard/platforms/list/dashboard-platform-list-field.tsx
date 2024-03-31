@@ -26,6 +26,7 @@ type DraggedElementProps = {
     setNodeRef?: (node: HTMLElement | null) => void
     isDragging?: boolean
     style?: React.CSSProperties
+    isDraggingDisabled?: boolean
 }
 
 type DashboardPlatformListFieldProps = DraggedElementProps & {
@@ -43,6 +44,7 @@ export const DashboardPlatformListField = ({
     onRemove,
     style,
     isDragging = false,
+    isDraggingDisabled = true,
 }: DashboardPlatformListFieldProps) => {
     const { control, formState, setValue } = useFormContext<DashboardFormValues>()
 
@@ -76,7 +78,11 @@ export const DashboardPlatformListField = ({
                         {...attributes}
                         {...listeners}
                         type="button"
-                        className={cn('h-3 w-3 cursor-grab', { 'cursor-grabbing': isDragging })}
+                        className={cn('h-3 w-3 cursor-grab', {
+                            'cursor-grabbing': isDragging,
+                            'cursor-default': isDraggingDisabled,
+                            hidden: platforms.length <= 1,
+                        })}
                     >
                         <DragHandle />
                     </button>

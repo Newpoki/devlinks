@@ -12,6 +12,7 @@ type DashboardPlatformSortableItemProps = {
     index: number
     platformsOptions: DashboardPlatformOption[]
     onRemove: UseFieldArrayRemove
+    isDraggingDisabled: boolean
 }
 
 export const DashboardPlatformSortableItem = ({
@@ -19,6 +20,7 @@ export const DashboardPlatformSortableItem = ({
     index,
     platformsOptions,
     onRemove,
+    isDraggingDisabled,
 }: DashboardPlatformSortableItemProps) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: field.id,
@@ -46,6 +48,7 @@ export const DashboardPlatformSortableItem = ({
             onRemove={onRemove}
             style={style}
             isDragging={isDragging}
+            isDraggingDisabled={isDraggingDisabled}
         />
     )
 }
