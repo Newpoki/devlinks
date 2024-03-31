@@ -1,5 +1,5 @@
 import { Paper } from '@/components/ui/paper'
-import { useFormContext, useWatch } from 'react-hook-form'
+import { UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form'
 import { DragHandle } from '@/components/icons/drag-handle'
 import { useCallback, useMemo } from 'react'
 import {
@@ -12,23 +12,38 @@ import {
 } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
-import { DashboardPlatformFieldIcon } from './dashboard-platform-field-icon'
 import { Input } from '@/components/ui/input'
-import { DashboardFormValues, DashboardPlatformOption } from '../dashboard-schemas'
-import { DASHBOARD_PLATFORMS_MAPPING } from '../dashboard-constants'
+import { DashboardFormValues, DashboardPlatformOption } from '../../dashboard-schemas'
+import { DASHBOARD_PLATFORMS_MAPPING } from '../../dashboard-constants'
 import { Button } from '@/components/ui/button'
+import { DraggableAttributes } from '@dnd-kit/core'
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
+import { cn } from '@/lib/utils'
 
-type DashboardPlatformFieldProps = {
-    platformsOptions: DashboardPlatformOption[]
-    index: number
-    onRemove: (linkIndex: number) => void
+type DraggedElementProps = {
+    attributes?: DraggableAttributes
+    listeners?: SyntheticListenerMap
+    setNodeRef?: (node: HTMLElement | null) => void
+    isDragging?: boolean
+    style?: React.CSSProperties
 }
 
-export const DashboardPlatformField = ({
+type DashboardPlatformListFieldProps = DraggedElementProps & {
+    platformsOptions: DashboardPlatformOption[]
+    index: number
+    onRemove: UseFieldArrayRemove
+}
+
+export const DashboardPlatformListField = ({
+    attributes,
+    listeners,
+    setNodeRef,
     index,
     platformsOptions,
     onRemove,
-}: DashboardPlatformFieldProps) => {
+    style,
+    isDragging = false,
+}: DashboardPlatformListFieldProps) => {
     const { control, formState, setValue } = useFormContext<DashboardFormValues>()
 
     const platforms = useWatch({ control, name: 'platforms' })
@@ -54,10 +69,17 @@ export const DashboardPlatformField = ({
     }, [index, onRemove])
 
     return (
-        <Paper className="gap-3">
+        <Paper style={style} className="z-10 gap-3" ref={setNodeRef}>
             <div className="flex items-center justify-between text-grey-500">
                 <div className="flex items-center gap-2">
-                    <DragHandle />
+                    <button
+                        {...attributes}
+                        {...listeners}
+                        type="button"
+                        className={cn('h-3 w-3 cursor-grab', { 'cursor-grabbing': isDragging })}
+                    >
+                        <DragHandle />
+                    </button>
                     <span className="text-[16px] font-bold leading-[150%]">{`Link #${index + 1}`}</span>
                 </div>
 
@@ -71,6 +93,8 @@ export const DashboardPlatformField = ({
                 disabled={isSubmitting}
                 name={`platforms.${index}.name`}
                 render={({ field: { ref, onChange, ...othersField } }) => {
+                    const selectedOptionMapping = DASHBOARD_PLATFORMS_MAPPING[fieldPlatform.name]
+
                     const handleChangePlatforms =
                         (onChange: (value: string) => void) => (value: string) => {
                             const selectedPlatform = platformsOptions.find(
@@ -96,7 +120,7 @@ export const DashboardPlatformField = ({
                                     onValueChange={handleChangePlatforms(onChange)}
                                 >
                                     <SelectTrigger className="flex w-full">
-                                        <DashboardPlatformFieldIcon name={fieldPlatform.name} />
+                                        <selectedOptionMapping.icon />
 
                                         <SelectValue />
                                     </SelectTrigger>
@@ -105,6 +129,9 @@ export const DashboardPlatformField = ({
                                         {filteredOptions.map((option, index) => {
                                             const isLast = index === filteredOptions.length - 1
 
+                                            const optionMapping =
+                                                DASHBOARD_PLATFORMS_MAPPING[option.name]
+
                                             return (
                                                 <div
                                                     className="flex flex-col gap-3"
@@ -112,16 +139,9 @@ export const DashboardPlatformField = ({
                                                 >
                                                     <SelectItem
                                                         value={option.name}
-                                                        icon={
-                                                            <DashboardPlatformFieldIcon
-                                                                name={option.name}
-                                                            />
-                                                        }
+                                                        icon={<optionMapping.icon />}
                                                     >
-                                                        {
-                                                            DASHBOARD_PLATFORMS_MAPPING[option.name]
-                                                                .label
-                                                        }
+                                                        {optionMapping.label}
                                                     </SelectItem>
 
                                                     {!isLast && <SelectSeparator />}

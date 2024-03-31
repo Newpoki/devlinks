@@ -6,19 +6,18 @@ import { useFieldArray, useFormContext } from 'react-hook-form'
 import { useCallback, useContext } from 'react'
 import { DashboardFormValues } from '../dashboard-schemas'
 import { DashboardNoPlatforms } from './dashboard-no-platforms'
-import { DashboardPlatformField } from './dashboard-platform-field'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DashboardContext } from '../dashboard-context'
+import { DashboardPlatformList } from './list/dashboard-platform-list'
 
 export default function DashboardPlatforms() {
     const { control, formState } = useFormContext<DashboardFormValues>()
 
     const { platformsOptions } = useContext(DashboardContext)
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
         name: 'platforms', // unique name for your Field Array
-        keyName: 'key',
     })
 
     const { isSubmitting } = formState
@@ -66,21 +65,12 @@ export default function DashboardPlatforms() {
                 {fields.length === 0 ? (
                     <DashboardNoPlatforms />
                 ) : (
-                    <>
-                        <ul className="flex flex-col gap-6">
-                            {fields.map((field, index) => {
-                                return (
-                                    <li key={field.key}>
-                                        <DashboardPlatformField
-                                            index={index}
-                                            onRemove={remove}
-                                            platformsOptions={platformsOptions}
-                                        />
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </>
+                    <DashboardPlatformList
+                        fields={fields}
+                        onRemove={remove}
+                        platformsOptions={platformsOptions}
+                        swap={swap}
+                    />
                 )}
             </CardContent>
         </ScrollArea>
