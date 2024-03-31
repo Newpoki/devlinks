@@ -1,8 +1,10 @@
 import { DashboardDraftPreviewPlatform } from '@/app/dashboard/dashboard-draft-preview-platform'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { authConfig } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { Profile } from '@prisma/client'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -55,20 +57,26 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
     const userProfile = await fetchUserProfile(params.userId)
     const userProfilePlatforms = await fetchUserProfilePlatforms(userProfile.id)
 
-    return (
-        <main className="flex min-h-[100dvh] flex-col gap-4 bg-white px-6 py-4">
-            <header className="mb-[60px] flex items-center gap-4">
-                <Link tabIndex={-1} href="/dashboard/platforms" className="w-full">
-                    <Button type="button" variant="outline" className="w-full">
-                        Back to Editor
-                    </Button>
-                </Link>
-                <Button type="button" className="w-full">
-                    Share Link
-                </Button>
-            </header>
+    const session = await getServerSession(authConfig)
 
-            <section className="mx-auto mb-14 flex w-2/3 flex-col items-center gap-6">
+    const isSeeingOwnProfile = session?.user.id === params.userId
+
+    return (
+        <main className="flex min-h-[100dvh] flex-col bg-white px-6 py-4">
+            {isSeeingOwnProfile && (
+                <header className="mb-[60px] flex items-center gap-4">
+                    <Link tabIndex={-1} href="/dashboard/platforms" className="w-full">
+                        <Button type="button" variant="outline" className="w-full">
+                            Back to Editor
+                        </Button>
+                    </Link>
+                    <Button type="button" className="w-full">
+                        Share Link
+                    </Button>
+                </header>
+            )}
+
+            <section className="mx-auto mb-14 mt-4 flex w-3/4 flex-col items-center gap-6">
                 <div className="h-[108px] w-[108px] rounded-full border-4 border-purple-500">
                     {userProfile.user.image != null ? (
                         <Image
