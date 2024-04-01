@@ -46,8 +46,6 @@ export const authConfig: NextAuthOptions = {
         session: async ({ session, user }) => {
             if (session.user != null) {
                 session.user.id = user.id
-                session.user.firstName = user.firstName
-                session.user.lastName = user.lastName
             }
 
             return session
