@@ -46,8 +46,8 @@ export default function DashboardProfilePage() {
                     </div>
 
                     <p className="text-b-s">
-                        The image is taken from your Google account so you don&apos;t have to change
-                        it.
+                        The image is taken from the provider you use to connect so you don&apos;t
+                        have to change it.
                     </p>
                 </Paper>
 
