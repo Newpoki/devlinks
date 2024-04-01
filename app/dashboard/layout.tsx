@@ -10,21 +10,22 @@ type DashboardLayoutProps = {
 }
 
 const fetchUserProfile = async (session: Session): Promise<Profile> => {
-    const user = await prisma.profile.findUnique({
+    const profile = await prisma.profile.findUnique({
         where: {
             userId: session.user.id,
         },
     })
 
-    if (user != null) {
-        return user
+    if (profile != null) {
+        return profile
     }
 
     return await prisma.profile.create({
         data: {
             email: session.user.email,
             userId: session.user.id,
-            firstName: session.user.name,
+            firstName: session.user.firstName,
+            lastName: session.user.lastName,
         },
     })
 }
@@ -55,6 +56,8 @@ const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<Prof
 
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
     const session = await getRequiredAuthSession()
+
+    console.log({ session })
 
     const userProfile = await fetchUserProfile(session)
     const platforms = await fetchAvailablePlatforms()

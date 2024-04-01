@@ -1,5 +1,5 @@
 import { getServerSession, NextAuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import prisma from './prisma'
 import type { Adapter } from 'next-auth/adapters'
@@ -11,12 +11,23 @@ export const authConfig: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            profile: (profile: GoogleProfile) => {
+                return {
+                    id: profile.sub,
+                    firstName: profile.given_name,
+                    lastName: profile.family_name,
+                    email: profile.email,
+                    image: profile.picture,
+                }
+            },
         }),
     ],
     callbacks: {
         session: async ({ session, user }) => {
             if (session.user != null) {
                 session.user.id = user.id
+                session.user.firstName = user.firstName
+                session.user.lastName = user.lastName
             }
 
             return session
