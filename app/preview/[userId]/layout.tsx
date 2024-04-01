@@ -25,7 +25,7 @@ export default async function PreviewLayout({ children, params }: PreviewLayoutP
             >
                 {isCurrentUserPreview && <PreviewHeader />}
 
-                <main className="py-10">{children}</main>
+                <main className="py-10 md:pt-32">{children}</main>
             </div>
         </ScrollArea>
     )

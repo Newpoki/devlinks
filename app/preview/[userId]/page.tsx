@@ -10,40 +10,35 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 export const revalidate = 0
 
 const fetchUserDashboardData = async (userId: string) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: userId,
-            },
-            select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                email: true,
-                image: true,
-            },
-        })
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            image: true,
+        },
+    })
 
-        if (user == null) {
-            notFound()
-        }
-
-        const userPlatforms = await prisma.userPlatform.findMany({
-            where: {
-                userId,
-            },
-            select: {
-                platform: true,
-                url: true,
-                id: true,
-            },
-        })
-
-        return { user, userPlatforms }
-    } catch {
-        // TODO: Remove try catch, and instead handle a proper error screen
+    if (user == null) {
         notFound()
     }
+
+    const userPlatforms = await prisma.userPlatform.findMany({
+        where: {
+            userId,
+        },
+        select: {
+            platform: true,
+            url: true,
+            id: true,
+        },
+    })
+
+    return { user, userPlatforms }
 }
 
 type PreviewPageProps = {
