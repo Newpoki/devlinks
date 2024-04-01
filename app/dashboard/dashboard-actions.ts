@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache'
 
 export const updateDashboard = async (formValues: DashboardFormValues) => {
     try {
+        // TODO: PErform form validation here, return error and update form state with error
         const updatedUser = await prisma.user.update({
             where: {
                 id: formValues.user.id,

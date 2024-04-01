@@ -18,7 +18,8 @@ export const authConfig: NextAuthOptions = {
                     firstName: profile.given_name,
                     lastName: profile.family_name,
                     email: profile.email,
-                    image: profile.picture,
+                    // Replacing s96 with s320 improve image quality
+                    image: profile.picture.replace('=s96', '=s320'),
                 }
             },
             allowDangerousEmailAccountLinking: true,
