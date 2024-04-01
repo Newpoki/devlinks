@@ -33,6 +33,18 @@ export const authConfig: NextAuthOptions = {
             return session
         },
     },
+    events: {
+        createUser: async ({ user }) => {
+            await prisma.profile.create({
+                data: {
+                    email: user.email,
+                    userId: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                },
+            })
+        },
+    },
 }
 
 export const getRequiredAuthSession = async () => {

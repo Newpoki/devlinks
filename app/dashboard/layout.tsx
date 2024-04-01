@@ -16,18 +16,12 @@ const fetchUserProfile = async (session: Session): Promise<Profile> => {
         },
     })
 
-    if (profile != null) {
-        return profile
+    if (profile == null) {
+        // TODO: handle error
+        throw new Error('Profile not found')
     }
 
-    return await prisma.profile.create({
-        data: {
-            email: session.user.email,
-            userId: session.user.id,
-            firstName: session.user.firstName,
-            lastName: session.user.lastName,
-        },
-    })
+    return profile
 }
 
 const fetchAvailablePlatforms = async (): Promise<DashboardPlatformOption[]> => {
