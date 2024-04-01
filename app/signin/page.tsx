@@ -1,8 +1,8 @@
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authConfig } from '@/lib/auth'
-import { SigninGoogleButton } from './signin-google-button'
+import { SigninFooter } from './signin-footer'
 
 export default async function Signin() {
     const session = await getServerSession(authConfig)
@@ -21,9 +21,7 @@ export default async function Signin() {
                 </CardDescription>
             </CardHeader>
 
-            <CardFooter className="justify-end">
-                <SigninGoogleButton />
-            </CardFooter>
+            <SigninFooter />
         </Card>
     )
 }
