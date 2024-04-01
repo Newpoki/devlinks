@@ -1,5 +1,5 @@
 import { forwardRef, useCallback } from 'react'
-import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form'
+import { FieldValues, SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form'
 import { Form } from '../ui/form'
 
 type UsableFormProps = Omit<React.FormHTMLAttributes<HTMLFormElement>, 'className' | 'onSubmit'>
@@ -10,6 +10,7 @@ export type ControlledFormProps<T extends FieldValues = FieldValues> = {
     onSubmit: SubmitHandler<T>
     formProps?: UsableFormProps
     formContext: UseFormReturn<T>
+    onValidationError?: SubmitErrorHandler<T>
 }
 
 /**
@@ -17,12 +18,20 @@ export type ControlledFormProps<T extends FieldValues = FieldValues> = {
  * See https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref for more details
  */
 const ControlledFormInternal = <T extends FieldValues = FieldValues>(
-    { className, formContext, onSubmit, children, formProps }: ControlledFormProps<T>,
+    {
+        className,
+        formContext,
+        onSubmit,
+        onValidationError,
+        children,
+        formProps,
+    }: ControlledFormProps<T>,
     ref: React.ForwardedRef<HTMLFormElement>
 ) => {
     const handleSubmit = useCallback(
-        (event: React.FormEvent | undefined) => formContext.handleSubmit(onSubmit)(event),
-        [formContext, onSubmit]
+        (event: React.FormEvent | undefined) =>
+            formContext.handleSubmit(onSubmit, onValidationError)(event),
+        [formContext, onSubmit, onValidationError]
     )
 
     return (

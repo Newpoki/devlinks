@@ -61,19 +61,34 @@ export const DashboardForm = ({
         }
     }, [platforms, session.user.image])
 
-    const handleSubmit = useCallback(async (formValues: DashboardFormValues) => {
-        try {
-            await updateDashboard(formValues)
-
-            toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })
-        } catch (error) {
-            console.log(error)
-        }
+    const handleValidationError = useCallback(() => {
+        toast.error(
+            'An error happened when updating your data. Check Links and Profile Details tabs.'
+        )
     }, [])
+
+    const handleSubmit = useCallback(
+        async (formValues: DashboardFormValues) => {
+            try {
+                await updateDashboard(formValues)
+
+                toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })
+            } catch (error) {
+                console.log(error)
+
+                handleValidationError()
+            }
+        },
+        [handleValidationError]
+    )
 
     return (
         <DashboardContextProvider value={dashboardContextData}>
-            <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
+            <ControlledForm
+                onSubmit={handleSubmit}
+                formContext={formContext}
+                onValidationError={handleValidationError}
+            >
                 <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
                     <DashboardHeader user={user} />
 
