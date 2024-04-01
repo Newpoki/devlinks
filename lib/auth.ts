@@ -21,6 +21,7 @@ export const authConfig: NextAuthOptions = {
                     image: profile.picture,
                 }
             },
+            allowDangerousEmailAccountLinking: true,
         }),
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -38,6 +39,7 @@ export const authConfig: NextAuthOptions = {
                     image: profile.avatar_url,
                 }
             },
+            allowDangerousEmailAccountLinking: true,
         }),
     ],
     callbacks: {
