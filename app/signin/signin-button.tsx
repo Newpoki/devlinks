@@ -2,7 +2,9 @@
 
 import { GitHubColored } from '@/components/icons/colored/github-colored'
 import { GoogleColored } from '@/components/icons/colored/google-colored'
+import { checkIsWebview } from '@/lib/check-is-webview'
 import { signIn } from 'next-auth/react'
+import { toast } from 'sonner'
 
 type SigninButtonProps = {
     provider: 'GOOGLE' | 'GITHUB'
@@ -26,8 +28,19 @@ const PROVIDER_MAPPING = {
 export const SigninButton = ({ setIsSignin, isSignin, provider }: SigninButtonProps) => {
     const mapping = PROVIDER_MAPPING[provider]
 
-    const handleSigninWithGitHub = async () => {
+    const handleSignin = async () => {
         try {
+            const isWebview = checkIsWebview()
+
+            if (isWebview && provider === 'GOOGLE') {
+                toast.error("Can't signin with Google", {
+                    description:
+                        'When opening website from another application, you have to copy and paste the URL to a browser.',
+                })
+
+                return
+            }
+
             setIsSignin(true)
             await signIn(mapping.name, { callbackUrl: '/dashboard' })
         } catch (error) {
@@ -42,7 +55,7 @@ export const SigninButton = ({ setIsSignin, isSignin, provider }: SigninButtonPr
             className="flex w-full items-center gap-3 rounded-md bg-[#202124] p-0.5 pr-3 transition-all duration-300 hover:bg-[#555658] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-25"
             disabled={isSignin}
             type="button"
-            onClick={handleSigninWithGitHub}
+            onClick={handleSignin}
         >
             <div className="flex h-9 w-9 items-center justify-center rounded-l bg-white">
                 {mapping.icon}
