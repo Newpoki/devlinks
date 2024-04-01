@@ -61,8 +61,7 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
                 <div className="h-[108px] w-[108px] rounded-full border-4 border-purple-500">
                     {user.image != null ? (
                         <Image
-                            // TODO: Create util to get better image quality
-                            src={user.image.replace('=s96-c', '=s384-c')}
+                            src={user.image}
                             alt="User picture"
                             width={108}
                             height={108}

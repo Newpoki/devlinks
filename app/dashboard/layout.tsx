@@ -14,8 +14,8 @@ const fetchUserDashboardData = async (session: Session) => {
         },
     })
 
+    // This shouldn't be possible
     if (user == null) {
-        // TODO: handle error
         throw new Error('User not found')
     }
 

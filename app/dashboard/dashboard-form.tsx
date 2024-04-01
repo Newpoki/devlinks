@@ -56,8 +56,7 @@ export const DashboardForm = ({
 
     const dashboardContextData = useMemo<DashboardContextData>(() => {
         return {
-            // Replacing `s` parameter to get better image quality
-            userPictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? null,
+            userPictureUrl: session.user.image ?? null,
             platformsOptions: platforms,
         }
     }, [platforms, session.user.image])
