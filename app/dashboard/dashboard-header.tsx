@@ -7,16 +7,11 @@ import { Logout } from '@/components/icons/logout'
 import { Profile } from '@/components/icons/profile'
 import { Button } from '@/components/ui/button'
 import { User } from '@prisma/client'
-import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 type DashboardHeaderProps = {
     user: User
-}
-
-const onSignout = () => {
-    signOut()
 }
 
 export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
@@ -67,10 +62,12 @@ export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
                     variant="text"
                     className="flex items-center gap-2 px-4 md:px-[27px]    "
                     type="button"
-                    onClick={onSignout}
+                    asChild
                 >
-                    <Logout />
-                    <h2 className="hidden text-h-s md:inline-block">Sign out</h2>
+                    <Link href={`/signout`}>
+                        <Logout />
+                        <h2 className="hidden text-h-s md:inline-block">Sign out</h2>
+                    </Link>
                 </Button>
             </div>
         </header>
