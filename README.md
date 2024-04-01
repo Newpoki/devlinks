@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Mentor - Link-sharing app solution
 
-## Getting Started
+This is a solution to the [Link-sharing app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/linksharing-app-Fbt7yweGsT). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-First, run the development server:
+## Table of contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   [Setup](#setup)
+-   [Overview](#overview)
+    -   [The challenge](#the-challenge)
+    -   [Screenshot](#screenshot)
+    -   [Links](#links)
+-   [My process](#my-process)
+    -   [Built with](#built-with)
+    -   [What I learned](#what-i-learned)
+-   [Author](#author)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   `yarn`
+-   Create `.env.local` file and fills variable that are shown in `.env.example`. **Make sure to use DEV Providers credentials and databse credentials**
+-   `yarn dev`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Overview
 
-## Learn More
+### The challenge
 
-To learn more about Next.js, take a look at the following resources:
+Users should be able to:
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   Create, read, update, delete links and see previews in the mobile mockup
+-   Receive validations if the links form is submitted without a URL or with the wrong URL pattern for the platform
+-   Drag and drop links to reorder them
+-   Add profile details like profile picture, first name, last name, and email
+-   Receive validations if the profile details form is saved with no first or last name
+-   Preview their devlinks profile and copy the link to their clipboard
+-   View the optimal layout for the interface depending on their device's screen size
+-   See hover and focus states for all interactive elements on the page
+-   **Bonus**: Save details to a database (build the project as a full-stack app)
+-   **Bonus**: Create an account and log in (add user authentication to the full-stack app)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Screenshot
 
-## Deploy on Vercel
+![Screenshot of the links tab on large screen](./readme/desktop-links.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Links
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   Solution URL: [https://www.frontendmentor.io/solutions/fullstack-devlinks-app-with-next-ts-react-hook-form-zod-shadcn-5hwHPQb1bP](https://www.frontendmentor.io/solutions/fullstack-devlinks-app-with-next-ts-react-hook-form-zod-shadcn-5hwHPQb1bP)
+-   Live Site URL: [https://devlinks-tan.vercel.app/](https://devlinks-tan.vercel.app/)
+
+## My process
+
+### Built with
+
+-   [NextJS](https://nextjs.org/) - React framework
+-   [Shadcn](https://ui.shadcn.com/) - UI library component
+-   [Tailwind](https://tailwindcss.com/) - CSS utilities
+-   [React hook form](https://react-hook-form.com/) - React hook form
+-   [Next Auth](https://next-auth.js.org/) - Authentication framework
+
+### What I learned
+
+-   How to setup a project using `next-auth`
+-   Using react hook form with Next
+
+## Author
+
+-   Website - [Jason savelli](https://jasonsavelli.fr)
+-   Frontend Mentor - [@Newpoki](https://www.frontendmentor.io/profile/Newpoki)
