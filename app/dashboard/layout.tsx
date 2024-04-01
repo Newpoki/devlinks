@@ -2,26 +2,26 @@ import { getRequiredAuthSession } from '@/lib/auth'
 import { DashboardLayoutSub } from './dashboard-layout-sub'
 import prisma from '@/lib/prisma'
 import { Session } from 'next-auth'
-import { Profile, ProfilePlatform } from '@prisma/client'
+import { ProfilePlatform, User } from '@prisma/client'
 import { DashboardPlatformOption } from './dashboard-schemas'
 
 type DashboardLayoutProps = {
     children: React.ReactNode
 }
 
-const fetchUserProfile = async (session: Session): Promise<Profile> => {
-    const profile = await prisma.profile.findUnique({
+const fetchUser = async (session: Session): Promise<User> => {
+    const user = await prisma.user.findUnique({
         where: {
-            userId: session.user.id,
+            id: session.user.id,
         },
     })
 
-    if (profile == null) {
+    if (user == null) {
         // TODO: handle error
         throw new Error('Profile not found')
     }
 
-    return profile
+    return user
 }
 
 const fetchAvailablePlatforms = async (): Promise<DashboardPlatformOption[]> => {
@@ -35,10 +35,10 @@ const fetchAvailablePlatforms = async (): Promise<DashboardPlatformOption[]> => 
     return platforms
 }
 
-const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<ProfilePlatform[]> => {
+const fetchUserPlatforms = async (userId: User['id']): Promise<ProfilePlatform[]> => {
     const userProfilePlatforms = await prisma.profilePlatform.findMany({
         where: {
-            profileId,
+            userId,
         },
         orderBy: {
             order: 'asc',
@@ -51,15 +51,13 @@ const fetchUserProfilePlatforms = async (profileId: Profile['id']): Promise<Prof
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
     const session = await getRequiredAuthSession()
 
-    console.log({ session })
-
-    const userProfile = await fetchUserProfile(session)
+    const user = await fetchUser(session)
     const platforms = await fetchAvailablePlatforms()
-    const profilePlatforms = await fetchUserProfilePlatforms(userProfile.id)
+    const profilePlatforms = await fetchUserPlatforms(user.id)
 
     return (
         <DashboardLayoutSub
-            profile={userProfile}
+            user={user}
             session={session}
             platforms={platforms}
             profilePlatforms={profilePlatforms}

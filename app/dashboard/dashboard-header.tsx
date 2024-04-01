@@ -6,20 +6,20 @@ import { Eye } from '@/components/icons/eye'
 import { Logout } from '@/components/icons/logout'
 import { Profile } from '@/components/icons/profile'
 import { Button } from '@/components/ui/button'
-import { Profile as IProfile } from '@prisma/client'
+import { User } from '@prisma/client'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 type DashboardHeaderProps = {
-    profile: IProfile
+    user: User
 }
 
 const onSignout = () => {
     signOut()
 }
 
-export const DashboardHeader = ({ profile }: DashboardHeaderProps) => {
+export const DashboardHeader = ({ user }: DashboardHeaderProps) => {
     const pathname = usePathname()
 
     return (
@@ -56,7 +56,7 @@ export const DashboardHeader = ({ profile }: DashboardHeaderProps) => {
             </nav>
 
             <div className="flex items-center gap-2">
-                <Link tabIndex={-1} href={`/preview/${profile.userId}`}>
+                <Link tabIndex={-1} href={`/preview/${user.id}`}>
                     <Button className="gap-2 px-4 md:px-[27px]" variant="outline" type="button">
                         <Eye className="md:hidden" />
                         <h2 className="hidden text-h-s md:inline-block">Preview</h2>

@@ -35,45 +35,58 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(auto()) @map("_id") @db.ObjectId
-    firstName     String?
-    lastName      String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    Profile       Profile[]
-}
-
-model Profile {
     id                 String            @id @default(auto()) @map("_id") @db.ObjectId
-    userId             String            @unique @db.ObjectId
-    user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
     firstName          String?
     lastName           String?
-    email              String?
+    email              String?           @unique
+    emailVerified      DateTime?
+    image              String?
+    accounts           Account[]
+    sessions           Session[]
     profilePlatformIds String[]          @db.ObjectId
     profilePlatforms   Platform[]        @relation(fields: [profilePlatformIds], references: [id])
     ProfilePlatform    ProfilePlatform[]
 }
 
+// model Profile {
+//     id                 String            @id @default(auto()) @map("_id") @db.ObjectId
+//     userId             String            @unique @db.ObjectId
+//     user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     firstName          String?
+//     lastName           String?
+//     email              String?
+//     profilePlatformIds String[]          @db.ObjectId
+//     profilePlatforms   Platform[]        @relation(fields: [profilePlatformIds], references: [id])
+//     ProfilePlatform    ProfilePlatform[]
+// }
+
 model ProfilePlatform {
     id         String       @id @default(auto()) @map("_id") @db.ObjectId
     platformId String       @db.ObjectId
     platform   Platform     @relation(fields: [platformId], references: [id])
-    profileId  String       @db.ObjectId
-    profile    Profile      @relation(fields: [profileId], references: [id])
+    userId     String       @db.ObjectId
+    user       User         @relation(fields: [userId], references: [id])
     url        String
     name       PlatformName
     order      Int
 }
 
+// model ProfilePlatform {
+//     id         String       @id @default(auto()) @map("_id") @db.ObjectId
+//     platformId String       @db.ObjectId
+//     platform   Platform     @relation(fields: [platformId], references: [id])
+//     profileId  String       @db.ObjectId
+//     profile    Profile      @relation(fields: [profileId], references: [id])
+//     url        String
+//     name       PlatformName
+//     order      Int
+// }
+
 model Platform {
     id              String            @id @default(auto()) @map("_id") @db.ObjectId
     name            PlatformName
-    profileIds      String[]          @db.ObjectId
-    profiles        Profile[]         @relation(fields: [profileIds], references: [id])
+    userIds         String[]          @db.ObjectId
+    users           User[]            @relation(fields: [userIds], references: [id])
     ProfilePlatform ProfilePlatform[]
 }
 

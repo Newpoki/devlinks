@@ -1,7 +1,7 @@
 import { DashboardDraftPreviewPlatform } from '@/app/dashboard/dashboard-draft-preview-platform'
 import { Skeleton } from '@/components/ui/skeleton'
 import prisma from '@/lib/prisma'
-import { Profile } from '@prisma/client'
+import { User } from '@prisma/client'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -10,18 +10,18 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 // and have update the bdd, so always want fresh data
 export const revalidate = 0
 
-const fetchUserProfile = async (userId: string) => {
+const fetchUser = async (userId: string) => {
     try {
-        const profile = await prisma.profile.findUnique({
+        const profile = await prisma.user.findUnique({
             where: {
-                userId,
+                id: userId,
             },
             select: {
                 id: true,
-                user: true,
                 firstName: true,
                 lastName: true,
                 email: true,
+                image: true,
             },
         })
 
@@ -35,10 +35,10 @@ const fetchUserProfile = async (userId: string) => {
     }
 }
 
-const fetchUserProfilePlatforms = async (profileId: Profile['id']) => {
+const fetchUserPlatforms = async (userId: User['id']) => {
     const userProfilePlatforms = await prisma.profilePlatform.findMany({
         where: {
-            profileId,
+            userId,
         },
         select: {
             platform: true,
@@ -57,16 +57,17 @@ type PreviewPageProps = {
 }
 
 export default async function PreviewPage({ params }: PreviewPageProps) {
-    const userProfile = await fetchUserProfile(params.userId)
-    const userProfilePlatforms = await fetchUserProfilePlatforms(userProfile.id)
+    const user = await fetchUser(params.userId)
+    const userProfilePlatforms = await fetchUserPlatforms(user.id)
 
     return (
         <Card className="md:mx-auto md:w-[349px] md:drop-shadow-xl">
             <CardHeader className="items-center gap-6">
                 <div className="h-[108px] w-[108px] rounded-full border-4 border-purple-500">
-                    {userProfile.user.image != null ? (
+                    {user.image != null ? (
                         <Image
-                            src={userProfile.user.image.replace('=s96-c', '=s384-c')}
+                            // TODO: Create util to get better image quality
+                            src={user.image.replace('=s96-c', '=s384-c')}
                             alt="User profile picture"
                             width={108}
                             height={108}
@@ -79,9 +80,9 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
 
                 <div className="flex flex-col gap-2 text-center">
                     <h1 className="text-h-m">
-                        {userProfile.firstName} {userProfile.lastName}
+                        {user.firstName} {user.lastName}
                     </h1>
-                    <h3 className="text-b-m text-grey-500">{userProfile.email}</h3>
+                    <h3 className="text-b-m text-grey-500">{user.email}</h3>
                 </div>
             </CardHeader>
 

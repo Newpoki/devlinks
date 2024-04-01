@@ -6,9 +6,9 @@ import { revalidatePath } from 'next/cache'
 
 export const updateDashboard = async (formValues: DashboardFormValues) => {
     try {
-        const userProfile = await prisma.profile.update({
+        const updatedUser = await prisma.user.update({
             where: {
-                userId: formValues.user.id,
+                id: formValues.user.id,
             },
             data: {
                 firstName: formValues.user.firstName,
@@ -19,7 +19,7 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
 
         await prisma.profilePlatform.deleteMany({
             where: {
-                profileId: userProfile.id,
+                userId: updatedUser.id,
             },
         })
 
@@ -27,7 +27,7 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
             data: formValues.platforms.map((platform, index) => {
                 return {
                     platformId: platform.platformId,
-                    profileId: userProfile.id,
+                    userId: updatedUser.id,
                     url: platform.url,
                     name: platform.name,
                     order: index,

@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
-import { Profile, ProfilePlatform } from '@prisma/client'
+import { ProfilePlatform, User } from '@prisma/client'
 import {
     DashboardFormValues,
     dashboardFormValuesSchema,
@@ -24,14 +24,14 @@ import { DashboardContextData, DashboardContextProvider } from './dashboard-cont
 type DashboardLayoutSubProps = {
     children: React.ReactNode
     session: Session
-    profile: Profile
+    user: User
     platforms: Array<DashboardPlatformOption>
     profilePlatforms: Array<ProfilePlatform>
 }
 
 export const DashboardLayoutSub = ({
     children,
-    profile,
+    user,
     session,
     platforms,
     profilePlatforms,
@@ -39,10 +39,10 @@ export const DashboardLayoutSub = ({
     const formContext = useForm<DashboardFormValues>({
         defaultValues: {
             user: {
-                firstName: profile.firstName ?? '',
-                lastName: profile.lastName ?? '',
-                email: profile.email ?? '',
-                id: profile.userId,
+                firstName: user.firstName ?? '',
+                lastName: user.lastName ?? '',
+                email: user.email ?? '',
+                id: user.id,
             },
             platforms: profilePlatforms.map((profilePlatform) => ({
                 id: profilePlatform.id,
@@ -76,7 +76,7 @@ export const DashboardLayoutSub = ({
         <DashboardContextProvider value={dashboardContextData}>
             <ControlledForm onSubmit={handleSubmit} formContext={formContext}>
                 <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
-                    <DashboardHeader profile={profile} />
+                    <DashboardHeader user={user} />
 
                     <main
                         className={cn(
