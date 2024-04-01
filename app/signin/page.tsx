@@ -3,6 +3,12 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authConfig } from '@/lib/auth'
 import { SigninFooter } from './signin-footer'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'DevLinks - Signin',
+    description: 'Signin to access your dashboard',
+}
 
 export default async function Signin() {
     const session = await getServerSession(authConfig)

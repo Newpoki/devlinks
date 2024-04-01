@@ -27,7 +27,7 @@ const fontSans = localFont({
 })
 export const metadata: Metadata = {
     title: 'DevLinks',
-    description: 'Create virtual card',
+    description: 'Create a profile to share your regroup and share all your accounts',
 }
 
 type RootLayoutProps = {

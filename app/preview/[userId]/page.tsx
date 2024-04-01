@@ -41,6 +41,42 @@ const fetchUserDashboardData = async (userId: string) => {
     return { user, userPlatforms }
 }
 
+const fetchUserMetadata = async (userId: string) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+            select: {
+                firstName: true,
+                lastName: true,
+            },
+        })
+
+        return user
+    } catch {
+        return null
+    }
+}
+
+export async function generateMetadata({ params }: PreviewPageProps) {
+    const userMetadata = await fetchUserMetadata(params.userId)
+
+    if (userMetadata == null) {
+        return {
+            title: `Devlinks - ${decodeURIComponent(params.userId)}`,
+            description: `Profile preview of user ${params.userId}`,
+        }
+    }
+
+    const name = `${userMetadata.firstName} ${userMetadata.lastName}`
+
+    return {
+        title: `Devlinks - ${name}`,
+        description: `Profile preview of ${name}`,
+    }
+}
+
 type PreviewPageProps = {
     params: {
         userId: string

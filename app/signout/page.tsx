@@ -2,6 +2,7 @@ import { getRequiredAuthSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { Session } from 'next-auth'
 import { Signout } from './signout'
+import { Metadata } from 'next'
 
 const fetchUser = async (session: Session) => {
     try {
@@ -13,6 +14,11 @@ const fetchUser = async (session: Session) => {
     } catch {
         return null
     }
+}
+
+export const metadata: Metadata = {
+    title: 'DevLinks - Signout',
+    description: 'Sign out from Devlinks',
 }
 
 export default async function SignoutPage() {
