@@ -21,7 +21,7 @@ import { SaveColored } from '@/components/icons/colored/save-colored'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DashboardContextData, DashboardContextProvider } from './dashboard-context'
 
-type DashboardLayoutSubProps = {
+type DashboardFormProps = {
     children: React.ReactNode
     session: Session
     user: User
@@ -29,14 +29,13 @@ type DashboardLayoutSubProps = {
     userPlatforms: UserPlatform[]
 }
 
-// TODO: Rename DashboardForm
-export const DashboardLayoutSub = ({
+export const DashboardForm = ({
     children,
     user,
     session,
     platforms,
     userPlatforms,
-}: DashboardLayoutSubProps) => {
+}: DashboardFormProps) => {
     const formContext = useForm<DashboardFormValues>({
         defaultValues: {
             user: {

@@ -1,5 +1,5 @@
 import { getRequiredAuthSession } from '@/lib/auth'
-import { DashboardLayoutSub } from './dashboard-layout-sub'
+import { DashboardForm } from './dashboard-form'
 import prisma from '@/lib/prisma'
 import { Session } from 'next-auth'
 
@@ -44,13 +44,13 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
     const { user, userPlatforms, platforms } = await fetchUserDashboardData(session)
 
     return (
-        <DashboardLayoutSub
+        <DashboardForm
             user={user}
             session={session}
             platforms={platforms}
             userPlatforms={userPlatforms}
         >
             {children}
-        </DashboardLayoutSub>
+        </DashboardForm>
     )
 }
