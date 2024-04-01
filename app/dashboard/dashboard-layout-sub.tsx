@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
-import { ProfilePlatform, User } from '@prisma/client'
+import { User, UserPlatform } from '@prisma/client'
 import {
     DashboardFormValues,
     dashboardFormValuesSchema,
@@ -26,15 +26,16 @@ type DashboardLayoutSubProps = {
     session: Session
     user: User
     platforms: Array<DashboardPlatformOption>
-    profilePlatforms: Array<ProfilePlatform>
+    userPlatforms: UserPlatform[]
 }
 
+// TODO: Rename DashboardForm
 export const DashboardLayoutSub = ({
     children,
     user,
     session,
     platforms,
-    profilePlatforms,
+    userPlatforms,
 }: DashboardLayoutSubProps) => {
     const formContext = useForm<DashboardFormValues>({
         defaultValues: {
@@ -44,11 +45,11 @@ export const DashboardLayoutSub = ({
                 email: user.email ?? '',
                 id: user.id,
             },
-            platforms: profilePlatforms.map((profilePlatform) => ({
-                id: profilePlatform.id,
-                name: profilePlatform.name,
-                url: profilePlatform.url,
-                platformId: profilePlatform.platformId,
+            platforms: userPlatforms.map((userPlatform) => ({
+                id: userPlatform.id,
+                name: userPlatform.name,
+                url: userPlatform.url,
+                platformId: userPlatform.platformId,
             })),
         },
         resolver: zodResolver(dashboardFormValuesSchema),
@@ -57,7 +58,7 @@ export const DashboardLayoutSub = ({
     const dashboardContextData = useMemo<DashboardContextData>(() => {
         return {
             // Replacing `s` parameter to get better image quality
-            profilePictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? null,
+            userPictureUrl: session.user.image?.replace('=s96-c', '=s384-c') ?? null,
             platformsOptions: platforms,
         }
     }, [platforms, session.user.image])

@@ -15,7 +15,7 @@ export const DashboardDraftPreview = () => {
     const user = useWatch({ control, name: 'user' })
     const platforms = useWatch({ control, name: 'platforms' })
 
-    const { profilePictureUrl, platformsOptions } = useContext(DashboardContext)
+    const { userPictureUrl, platformsOptions } = useContext(DashboardContext)
 
     const skeletonsArray =
         platforms.length >= 4
@@ -31,10 +31,10 @@ export const DashboardDraftPreview = () => {
                 >
                     <ScrollArea className="mr-2 flex w-full flex-col pl-8 pr-6">
                         <section className="mb-10 flex w-full flex-col items-center gap-6">
-                            {profilePictureUrl != null ? (
+                            {userPictureUrl != null ? (
                                 <Image
-                                    src={profilePictureUrl}
-                                    alt="User profile picture"
+                                    src={userPictureUrl}
+                                    alt="User picture"
                                     width={93}
                                     height={93}
                                     className="rounded-full"

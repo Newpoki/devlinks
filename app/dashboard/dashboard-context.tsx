@@ -2,12 +2,12 @@ import { createContext } from 'react'
 import { DashboardPlatformOption } from './dashboard-schemas'
 
 export type DashboardContextData = {
-    profilePictureUrl: string | null
+    userPictureUrl: string | null
     platformsOptions: DashboardPlatformOption[]
 }
 
 export const DashboardContext = createContext<DashboardContextData>({
-    profilePictureUrl: null,
+    userPictureUrl: null,
     platformsOptions: [],
 })
 

@@ -1,7 +1,6 @@
 import { DashboardDraftPreviewPlatform } from '@/app/dashboard/dashboard-draft-preview-platform'
 import { Skeleton } from '@/components/ui/skeleton'
 import prisma from '@/lib/prisma'
-import { User } from '@prisma/client'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -10,9 +9,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 // and have update the bdd, so always want fresh data
 export const revalidate = 0
 
-const fetchUser = async (userId: string) => {
+const fetchUserDashboardData = async (userId: string) => {
     try {
-        const profile = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id: userId,
             },
@@ -25,29 +24,26 @@ const fetchUser = async (userId: string) => {
             },
         })
 
-        if (profile == null) {
+        if (user == null) {
             notFound()
         }
 
-        return profile
+        const userPlatforms = await prisma.userPlatform.findMany({
+            where: {
+                userId,
+            },
+            select: {
+                platform: true,
+                url: true,
+                id: true,
+            },
+        })
+
+        return { user, userPlatforms }
     } catch {
+        // TODO: Remove try catch, and instead handle a proper error screen
         notFound()
     }
-}
-
-const fetchUserPlatforms = async (userId: User['id']) => {
-    const userProfilePlatforms = await prisma.profilePlatform.findMany({
-        where: {
-            userId,
-        },
-        select: {
-            platform: true,
-            url: true,
-            id: true,
-        },
-    })
-
-    return userProfilePlatforms
 }
 
 type PreviewPageProps = {
@@ -57,8 +53,7 @@ type PreviewPageProps = {
 }
 
 export default async function PreviewPage({ params }: PreviewPageProps) {
-    const user = await fetchUser(params.userId)
-    const userProfilePlatforms = await fetchUserPlatforms(user.id)
+    const { user, userPlatforms } = await fetchUserDashboardData(params.userId)
 
     return (
         <Card className="md:mx-auto md:w-[349px] md:drop-shadow-xl">
@@ -68,7 +63,7 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
                         <Image
                             // TODO: Create util to get better image quality
                             src={user.image.replace('=s96-c', '=s384-c')}
-                            alt="User profile picture"
+                            alt="User picture"
                             width={108}
                             height={108}
                             className="rounded-full"
@@ -88,12 +83,12 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
 
             <CardContent className="px-[70px] pb-0">
                 <ul className="flex w-full flex-col gap-5">
-                    {userProfilePlatforms.map((userProfilePlatform) => {
+                    {userPlatforms.map((userPlatform) => {
                         return (
-                            <li key={userProfilePlatform.id} className="w-full">
+                            <li key={userPlatform.id} className="w-full">
                                 <DashboardDraftPreviewPlatform
-                                    name={userProfilePlatform.platform.name}
-                                    url={userProfilePlatform.url}
+                                    name={userPlatform.platform.name}
+                                    url={userPlatform.url}
                                 />
                             </li>
                         )

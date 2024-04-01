@@ -17,13 +17,13 @@ export const updateDashboard = async (formValues: DashboardFormValues) => {
             },
         })
 
-        await prisma.profilePlatform.deleteMany({
+        await prisma.userPlatform.deleteMany({
             where: {
                 userId: updatedUser.id,
             },
         })
 
-        await prisma.profilePlatform.createMany({
+        await prisma.userPlatform.createMany({
             data: formValues.platforms.map((platform, index) => {
                 return {
                     platformId: platform.platformId,
