@@ -29,7 +29,7 @@ const dashboardPlatformOption = z.object({
 })
 
 const platformValidator = (platformName: PlatformName) => {
-    const urlPattern = DASHBOARD_PLATFORMS_MAPPING[platformName].urlPattern
+    const mapping = DASHBOARD_PLATFORMS_MAPPING[platformName]
 
     return (
         z
@@ -42,9 +42,9 @@ const platformValidator = (platformName: PlatformName) => {
                 url: z
                     .string()
                     .min(1, REQUIRED_FIELD_ERROR_MESSAGE)
-                    .startsWith(
-                        urlPattern,
-                        `${INVALID_PLATFORM_URL_ERROR_MESSAGE_PREFIX}: ${urlPattern}`
+                    .regex(
+                        new RegExp(mapping.regex),
+                        `${INVALID_PLATFORM_URL_ERROR_MESSAGE_PREFIX}: ${mapping.urlPattern}`
                     ),
             })
     )

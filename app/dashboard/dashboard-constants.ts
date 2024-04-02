@@ -23,6 +23,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://codepen.io/',
         icon: Codepen,
         coloredIcon: Codepen,
+        regex: 'https://(www.)?codepen.io/\\w+',
     },
     CODEWARS: {
         backgroundColor: '#8A1A50',
@@ -32,6 +33,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://codewars.com/users/',
         icon: Codewars,
         coloredIcon: Codewars,
+        regex: 'https://(www.)?codewars.com/users/\\w+',
     },
     DEVTO: {
         backgroundColor: '#333333',
@@ -41,6 +43,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://dev.to/',
         icon: DevTo,
         coloredIcon: DevTo,
+        regex: 'https://(www.)?dev.to/\\w+',
     },
     FACEBOOK: {
         backgroundColor: '#2442AC',
@@ -50,6 +53,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://facebook.com/',
         icon: Facebook,
         coloredIcon: Facebook,
+        regex: 'https://(www.)?facebook.com/\\w+',
     },
     FREECODECAMP: {
         backgroundColor: '#302267',
@@ -59,6 +63,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://freecodecamp.org/',
         icon: FreecodeCamp,
         coloredIcon: FreecodeCamp,
+        regex: 'https://(www.)?freecodecamp.org/\\w+',
     },
     FRONTEND_MENTOR: {
         backgroundColor: '#FFFFFF',
@@ -68,6 +73,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://frontendmentor.io/profile/',
         icon: FrontendMentor,
         coloredIcon: FrontendMentorColored,
+        regex: 'https://(www.)?frontendmentor.io/profile/\\w+',
     },
     GITHUB: {
         backgroundColor: '#1A1A1A',
@@ -77,6 +83,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://github.com/',
         icon: Github,
         coloredIcon: Github,
+        regex: 'https://(www.)?github.com/\\w+',
     },
     GITLAB: {
         backgroundColor: '#EB4925',
@@ -86,6 +93,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://gitlab.com/',
         icon: Gitlab,
         coloredIcon: Gitlab,
+        regex: 'https://(www.)?gitlab.com/\\w+',
     },
     HASNODE: {
         backgroundColor: '#0330D1',
@@ -95,6 +103,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://hashnode.com/@',
         icon: Hashnode,
         coloredIcon: Hashnode,
+        regex: 'https://(www.)?hashnode.com/@\\w+',
     },
     LINKEDIN: {
         backgroundColor: '#2D68FF',
@@ -104,6 +113,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://linkedin.com/in/',
         icon: Linkedin,
         coloredIcon: Linkedin,
+        regex: 'https://(www.)?linkedin.com/in/\\w+',
     },
     STACK_OVERFLOW: {
         backgroundColor: '#EC7100',
@@ -113,6 +123,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://stackoverflow.com/users/',
         icon: StackOverflow,
         coloredIcon: StackOverflow,
+        regex: 'https://(www.)?stackoverflow.com/users\\w+',
     },
     TWITCH: {
         backgroundColor: '#EE3FC8',
@@ -122,6 +133,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://twitch.tv/',
         icon: Twitch,
         coloredIcon: Twitch,
+        regex: 'https://(www.)?twitch.tv/\\w+',
     },
     TWITTER: {
         backgroundColor: '#43B7E9',
@@ -131,6 +143,7 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://twitter.com/',
         icon: Twitter,
         coloredIcon: Twitter,
+        regex: 'https://(www.)?twitter.com/\\w+',
     },
     YOUTUBE: {
         backgroundColor: '#EE3939',
@@ -140,5 +153,6 @@ export const DASHBOARD_PLATFORMS_MAPPING = {
         urlPattern: 'https://youtube.com/channel/',
         icon: Youtube,
         coloredIcon: Youtube,
+        regex: 'https://(www.)?youtube.com/channel/\\w+',
     },
 } as const
