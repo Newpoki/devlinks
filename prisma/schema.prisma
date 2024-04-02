@@ -45,8 +45,7 @@ model User {
     accounts        Account[]
     sessions        Session[]
     userPlatformIds String[]       @db.ObjectId
-    userPlatforms   Platform[]     @relation(fields: [userPlatformIds], references: [id])
-    UserPlatform    UserPlatform[]
+    userPlatforms   UserPlatform[]
 }
 
 model UserPlatform {
@@ -63,8 +62,6 @@ model UserPlatform {
 model Platform {
     id           String         @id @default(auto()) @map("_id") @db.ObjectId
     name         PlatformName
-    userIds      String[]       @db.ObjectId
-    users        User[]         @relation(fields: [userIds], references: [id])
     UserPlatform UserPlatform[]
 }
 
