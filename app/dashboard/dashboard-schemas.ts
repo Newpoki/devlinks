@@ -28,7 +28,7 @@ const dashboardPlatformOption = z.object({
     name: platformName,
 })
 
-const urlValidator = (platformName: PlatformName) => {
+const platformValidator = (platformName: PlatformName) => {
     const urlPattern = DASHBOARD_PLATFORMS_MAPPING[platformName].urlPattern
 
     return (
@@ -36,6 +36,7 @@ const urlValidator = (platformName: PlatformName) => {
             // This would be better using regexp for this
             // but I think this is a bit too much, and I don't exactly know which chars are allowed
             .object({
+                id: z.string().optional(),
                 platformId: z.string(),
                 name: z.literal(platformName),
                 url: z
@@ -57,20 +58,20 @@ export const dashboardFormValuesSchema = z.object({
         id: z.string(),
     }),
     platforms: z.array(
-        urlValidator('GITHUB')
-            .or(urlValidator('FRONTEND_MENTOR'))
-            .or(urlValidator('TWITTER'))
-            .or(urlValidator('LINKEDIN'))
-            .or(urlValidator('YOUTUBE'))
-            .or(urlValidator('FACEBOOK'))
-            .or(urlValidator('TWITCH'))
-            .or(urlValidator('DEVTO'))
-            .or(urlValidator('CODEWARS'))
-            .or(urlValidator('CODEPEN'))
-            .or(urlValidator('FREECODECAMP'))
-            .or(urlValidator('GITLAB'))
-            .or(urlValidator('HASNODE'))
-            .or(urlValidator('STACK_OVERFLOW'))
+        platformValidator('GITHUB')
+            .or(platformValidator('FRONTEND_MENTOR'))
+            .or(platformValidator('TWITTER'))
+            .or(platformValidator('LINKEDIN'))
+            .or(platformValidator('YOUTUBE'))
+            .or(platformValidator('FACEBOOK'))
+            .or(platformValidator('TWITCH'))
+            .or(platformValidator('DEVTO'))
+            .or(platformValidator('CODEWARS'))
+            .or(platformValidator('CODEPEN'))
+            .or(platformValidator('FREECODECAMP'))
+            .or(platformValidator('GITLAB'))
+            .or(platformValidator('HASNODE'))
+            .or(platformValidator('STACK_OVERFLOW'))
     ),
 })
 
