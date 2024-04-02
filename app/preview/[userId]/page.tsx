@@ -4,6 +4,8 @@ import prisma from '@/lib/prisma'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Metadata } from 'next'
+import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types'
 
 // We don't want any cache here, because user may come from /dashboard url
 // and have update the bdd, so always want fresh data
@@ -50,6 +52,7 @@ const fetchUserMetadata = async (userId: string) => {
             select: {
                 firstName: true,
                 lastName: true,
+                image: true,
             },
         })
 
@@ -59,7 +62,7 @@ const fetchUserMetadata = async (userId: string) => {
     }
 }
 
-export async function generateMetadata({ params }: PreviewPageProps) {
+export async function generateMetadata({ params }: PreviewPageProps): Promise<Metadata> {
     const userMetadata = await fetchUserMetadata(params.userId)
 
     if (userMetadata == null) {
@@ -71,9 +74,29 @@ export async function generateMetadata({ params }: PreviewPageProps) {
 
     const name = `${userMetadata.firstName} ${userMetadata.lastName}`
 
-    return {
+    const baseMetadata = {
         title: `Devlinks - ${name}`,
         description: `Profile preview of ${name}`,
+    }
+
+    const openGraphMetadata: OpenGraph = {
+        type: 'website',
+        title: baseMetadata.title,
+        description: baseMetadata.description,
+        siteName: 'Devlinks',
+        images:
+            userMetadata.image != null
+                ? [
+                      {
+                          url: userMetadata.image,
+                      },
+                  ]
+                : [],
+    }
+
+    return {
+        openGraph: openGraphMetadata,
+        twitter: openGraphMetadata,
     }
 }
 
