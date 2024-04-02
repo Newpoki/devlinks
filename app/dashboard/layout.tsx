@@ -8,16 +8,11 @@ type DashboardLayoutProps = {
 }
 
 const fetchUserDashboardData = async (session: Session) => {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUniqueOrThrow({
         where: {
             id: session.user.id,
         },
     })
-
-    // This shouldn't be possible
-    if (user == null) {
-        throw new Error('User not found')
-    }
 
     const platforms = await prisma.platform.findMany({
         select: {
