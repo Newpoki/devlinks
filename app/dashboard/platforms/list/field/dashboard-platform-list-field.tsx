@@ -43,7 +43,9 @@ export const DashboardPlatformListField = ({
 
     const { isSubmitting, errors } = formState
 
-    const hasPlatformsRootErrors = errors.platforms?.root != null
+    const hasPlatformsRootErrors = Boolean(
+        errors.platforms?.message || errors.platforms?.root?.message
+    )
 
     // We're removing options that are already selected
     // Except the one that might be selected by the field

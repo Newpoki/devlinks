@@ -74,12 +74,16 @@ export const dashboardFormValuesSchema = z.object({
                 .or(platformValidator('HASNODE'))
                 .or(platformValidator('STACK_OVERFLOW'))
         )
+        .min(1, 'You should have at least one platform')
+        .max(Object.keys(DASHBOARD_PLATFORMS_MAPPING).length, {
+            message: `You can't have more than ${Object.keys(DASHBOARD_PLATFORMS_MAPPING).length} platforms.`,
+        })
         .refine(
             (entries) => {
                 // Set cant have duplicated elements. So if the length are different, it means there are some duplicated items
                 const platformsSet = new Set(entries.map((entry) => entry.platformId))
 
-                return platformsSet.size !== entries.length
+                return platformsSet.size === entries.length
             },
             {
                 message: "You can't have duplicated platforms",

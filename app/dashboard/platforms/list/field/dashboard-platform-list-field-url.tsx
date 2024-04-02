@@ -21,7 +21,9 @@ export const DashboardPlatformListfieldUrl = ({ index }: DashboardPlatformListfi
             name={`platforms.${index}.url`}
             disabled={isSubmitting}
             render={({ field, fieldState, formState }) => {
-                const hasPlatformsRootErrors = formState.errors.platforms?.root != null
+                const hasPlatformsRootErrors = Boolean(
+                    formState.errors.platforms?.message || formState.errors.platforms?.root?.message
+                )
 
                 return (
                     <FormItem className="w-full">

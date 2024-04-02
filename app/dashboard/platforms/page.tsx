@@ -22,7 +22,7 @@ export default function DashboardPlatforms() {
 
     const { isSubmitting, errors } = formState
 
-    const platformsRootError = errors.platforms?.root?.message
+    const platformsRootError = errors.platforms?.message ?? errors.platforms?.root?.message
 
     const hasPlatformsRootErrors = platformsRootError != null
 
