@@ -1,7 +1,7 @@
 'use client'
 
 import { ControlledForm } from '@/components/controlled/controlled-form'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { DashboardHeader } from './dashboard-header'
 import { Session } from 'next-auth'
@@ -11,15 +11,13 @@ import {
     dashboardFormValuesSchema,
     DashboardPlatformOption,
 } from './dashboard-schemas'
-import { updateDashboard } from './dashboard-actions'
 import { Card } from '@/components/ui/card'
 import { DashboardFooter } from './dashboard-footer'
 import { DashboardDraftPreview } from './dashboard-draft-preview'
 import { cn } from '@/lib/utils'
-import { toast } from 'sonner'
-import { SaveColored } from '@/components/icons/colored/save-colored'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DashboardContextData, DashboardContextProvider } from './dashboard-context'
+import { useDashboardForm } from './use-dashboard-form'
 
 type DashboardFormProps = {
     children: React.ReactNode
@@ -54,6 +52,8 @@ export const DashboardForm = ({
         resolver: zodResolver(dashboardFormValuesSchema),
     })
 
+    const { onSubmit, onValidationError } = useDashboardForm({ formContext })
+
     const dashboardContextData = useMemo<DashboardContextData>(() => {
         return {
             userPictureUrl: session.user.image ?? null,
@@ -61,33 +61,12 @@ export const DashboardForm = ({
         }
     }, [platforms, session.user.image])
 
-    const handleValidationError = useCallback(() => {
-        toast.error(
-            'An error happened when updating your data. Check Links and Profile Details tabs.'
-        )
-    }, [])
-
-    const handleSubmit = useCallback(
-        async (formValues: DashboardFormValues) => {
-            try {
-                await updateDashboard(formValues)
-
-                toast.info('Your changes have been successfully saved!', { icon: <SaveColored /> })
-            } catch (error) {
-                console.log(error)
-
-                handleValidationError()
-            }
-        },
-        [handleValidationError]
-    )
-
     return (
         <DashboardContextProvider value={dashboardContextData}>
             <ControlledForm
-                onSubmit={handleSubmit}
+                onSubmit={onSubmit}
                 formContext={formContext}
-                onValidationError={handleValidationError}
+                onValidationError={onValidationError}
             >
                 <div className="flex h-[100dvh] flex-col gap-4 bg-grey-100 md:gap-6 md:p-6">
                     <DashboardHeader user={user} />
