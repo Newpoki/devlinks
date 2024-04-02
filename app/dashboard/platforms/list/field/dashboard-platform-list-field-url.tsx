@@ -20,7 +20,9 @@ export const DashboardPlatformListfieldUrl = ({ index }: DashboardPlatformListfi
             control={control}
             name={`platforms.${index}.url`}
             disabled={isSubmitting}
-            render={({ field, fieldState }) => {
+            render={({ field, fieldState, formState }) => {
+                const hasPlatformsRootErrors = formState.errors.platforms?.root != null
+
                 return (
                     <FormItem className="w-full">
                         <FormLabel>Link</FormLabel>
@@ -29,7 +31,10 @@ export const DashboardPlatformListfieldUrl = ({ index }: DashboardPlatformListfi
                                 {...field}
                                 value={field.value ?? ''}
                                 placeholder={DASHBOARD_PLATFORMS_MAPPING[name].urlPattern}
-                                error={fieldState.error?.message}
+                                errorMessage={fieldState.error?.message}
+                                hasError={
+                                    fieldState.error?.message != null || hasPlatformsRootErrors
+                                }
                             />
                         </FormControl>
                     </FormItem>

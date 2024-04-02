@@ -20,7 +20,11 @@ export default function DashboardPlatforms() {
         name: 'platforms', // unique name for your Field Array
     })
 
-    const { isSubmitting } = formState
+    const { isSubmitting, errors } = formState
+
+    const platformsRootError = errors.platforms?.root?.message
+
+    const hasPlatformsRootErrors = platformsRootError != null
 
     // We don't want to add many times the same platform, so the new added platform
     // must not already be there
@@ -61,6 +65,10 @@ export default function DashboardPlatforms() {
                 >
                     + Add new link
                 </Button>
+
+                {hasPlatformsRootErrors && (
+                    <p className="text-b-m text-red-500">{platformsRootError}</p>
+                )}
 
                 {fields.length === 0 ? (
                     <DashboardNoPlatforms />

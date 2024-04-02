@@ -57,22 +57,34 @@ export const dashboardFormValuesSchema = z.object({
         email: z.string().min(1, REQUIRED_FIELD_ERROR_MESSAGE).email('Must be a valid email'),
         id: z.string(),
     }),
-    platforms: z.array(
-        platformValidator('GITHUB')
-            .or(platformValidator('FRONTEND_MENTOR'))
-            .or(platformValidator('TWITTER'))
-            .or(platformValidator('LINKEDIN'))
-            .or(platformValidator('YOUTUBE'))
-            .or(platformValidator('FACEBOOK'))
-            .or(platformValidator('TWITCH'))
-            .or(platformValidator('DEVTO'))
-            .or(platformValidator('CODEWARS'))
-            .or(platformValidator('CODEPEN'))
-            .or(platformValidator('FREECODECAMP'))
-            .or(platformValidator('GITLAB'))
-            .or(platformValidator('HASNODE'))
-            .or(platformValidator('STACK_OVERFLOW'))
-    ),
+    platforms: z
+        .array(
+            platformValidator('GITHUB')
+                .or(platformValidator('FRONTEND_MENTOR'))
+                .or(platformValidator('TWITTER'))
+                .or(platformValidator('LINKEDIN'))
+                .or(platformValidator('YOUTUBE'))
+                .or(platformValidator('FACEBOOK'))
+                .or(platformValidator('TWITCH'))
+                .or(platformValidator('DEVTO'))
+                .or(platformValidator('CODEWARS'))
+                .or(platformValidator('CODEPEN'))
+                .or(platformValidator('FREECODECAMP'))
+                .or(platformValidator('GITLAB'))
+                .or(platformValidator('HASNODE'))
+                .or(platformValidator('STACK_OVERFLOW'))
+        )
+        .refine(
+            (entries) => {
+                // Set cant have duplicated elements. So if the length are different, it means there are some duplicated items
+                const platformsSet = new Set(entries.map((entry) => entry.platformId))
+
+                return platformsSet.size !== entries.length
+            },
+            {
+                message: "You can't have duplicated platforms",
+            }
+        ),
 })
 
 export type DashboardFormValues = z.infer<typeof dashboardFormValuesSchema>

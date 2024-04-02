@@ -3,14 +3,13 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    error?: string
+    hasError?: boolean
+    errorMessage?: string
     startIcon?: React.ReactNode
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-    ({ className, disabled, error, id, type, startIcon, ...props }, ref) => {
-        const hasError = error != null
-
+    ({ className, disabled, hasError, errorMessage, id, type, startIcon, ...props }, ref) => {
         return (
             <label
                 className={cn(
@@ -38,7 +37,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 />
 
                 {hasError && (
-                    <span className="ml-auto flex-shrink-0 text-b-s text-red-500">{error}</span>
+                    <span className="ml-auto flex-shrink-0 text-b-s text-red-500">
+                        {errorMessage}
+                    </span>
                 )}
             </label>
         )

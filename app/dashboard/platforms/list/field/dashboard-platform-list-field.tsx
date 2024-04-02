@@ -41,7 +41,9 @@ export const DashboardPlatformListField = ({
     const platforms = useWatch({ control, name: 'platforms' })
     const fieldPlatform = useWatch({ control, name: `platforms.${index}` })
 
-    const { isSubmitting } = formState
+    const { isSubmitting, errors } = formState
+
+    const hasPlatformsRootErrors = errors.platforms?.root != null
 
     // We're removing options that are already selected
     // Except the one that might be selected by the field
@@ -61,7 +63,13 @@ export const DashboardPlatformListField = ({
     }, [index, onRemove])
 
     return (
-        <Paper style={style} className="z-10 gap-3" ref={setNodeRef}>
+        <Paper
+            style={style}
+            className={cn('z-10 gap-3', {
+                'bg-red-500/5': hasPlatformsRootErrors,
+            })}
+            ref={setNodeRef}
+        >
             <div className="flex items-center justify-between text-grey-500">
                 <div className="flex items-center gap-2">
                     <button

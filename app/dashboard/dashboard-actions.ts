@@ -6,7 +6,7 @@ import uniqby from 'lodash.uniqby'
 import prisma from '@/lib/prisma'
 
 export const updateUserDashboard = async (formValues: DashboardFormValues) => {
-    const parsedFormValues = dashboardFormValuesSchema.safeParse(formValues)
+    const parsedFormValues = dashboardFormValuesSchema.safeParse({ formValues })
 
     if (parsedFormValues.success === false) {
         const errorsWithCorrectPath = parsedFormValues.error.errors.map((error) => ({
