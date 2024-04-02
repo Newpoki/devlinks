@@ -67,7 +67,8 @@ export default function DashboardProfilePage() {
                                             {...field}
                                             value={field.value ?? ''}
                                             placeholder="Jason"
-                                            error={fieldState.error?.message}
+                                            errorMessage={fieldState.error?.message}
+                                            hasError={fieldState.error?.message != null}
                                         />
                                     </FormControl>
                                 </FormItem>
@@ -90,7 +91,8 @@ export default function DashboardProfilePage() {
                                             {...field}
                                             value={field.value ?? ''}
                                             placeholder="Savelli"
-                                            error={fieldState.error?.message}
+                                            errorMessage={fieldState.error?.message}
+                                            hasError={fieldState.error?.message != null}
                                         />
                                     </FormControl>
                                 </FormItem>
@@ -113,7 +115,8 @@ export default function DashboardProfilePage() {
                                             {...field}
                                             value={field.value ?? ''}
                                             placeholder="email@gmail.com"
-                                            error={fieldState.error?.message}
+                                            errorMessage={fieldState.error?.message}
+                                            hasError={fieldState.error?.message != null}
                                         />
                                     </FormControl>
                                 </FormItem>
