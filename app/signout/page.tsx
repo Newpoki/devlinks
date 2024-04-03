@@ -27,11 +27,11 @@ export default async function SignoutPage() {
     const user = await fetchUser(session)
 
     return (
-        <main className="flex h-[100dvh] flex-col items-center justify-center gap-2 md:mx-auto md:gap-8">
-            <h1 className="text-[51px] font-semibold leading-none text-purple-500 duration-150 animate-in md:text-[120px]">
+        <main className="flex h-[100dvh] flex-col items-center justify-center gap-2 text-center md:mx-auto md:gap-8">
+            <h1 className="text-[42px] font-semibold leading-none text-purple-500 duration-150 animate-in md:text-[90px] lg:text-[120px]">
                 Good bye {user?.firstName}!
             </h1>
-            <h2 className="text-[27px] md:text-[69px]">Hope to see you soon.</h2>
+            <h2 className="text-[21px] md:text-[51px] lg:text-[69px]">Hope to see you soon.</h2>
             <Signout />
         </main>
     )
