@@ -7,40 +7,25 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Metadata } from 'next'
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types'
 
-// We don't want any cache here, because user may come from /dashboard url
-// and have update the bdd, so always want fresh data
-export const revalidate = 0
-
 const fetchUserDashboardData = async (userId: string) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            id: userId,
-        },
-        select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-            image: true,
-        },
-    })
+    try {
+        const { userPlatforms, ...user } = await prisma.user.findUniqueOrThrow({
+            where: {
+                id: userId,
+            },
+            include: {
+                userPlatforms: {
+                    include: {
+                        platform: true,
+                    },
+                },
+            },
+        })
 
-    if (user == null) {
+        return { user, userPlatforms }
+    } catch {
         notFound()
     }
-
-    const userPlatforms = await prisma.userPlatform.findMany({
-        where: {
-            userId,
-        },
-        select: {
-            platform: true,
-            url: true,
-            id: true,
-        },
-    })
-
-    return { user, userPlatforms }
 }
 
 const fetchUserMetadata = async (userId: string) => {

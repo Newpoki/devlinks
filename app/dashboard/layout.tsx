@@ -8,35 +8,29 @@ type DashboardLayoutProps = {
 }
 
 const fetchUserDashboardData = async (session: Session) => {
-    const user = await prisma.user.findUniqueOrThrow({
+    const userAndUserPlatformsPromise = prisma.user.findUniqueOrThrow({
         where: {
             id: session.user.id,
         },
+        include: {
+            userPlatforms: true,
+        },
     })
 
-    const platforms = await prisma.platform.findMany({
+    const platformsPromise = prisma.platform.findMany({
         select: {
             name: true,
             id: true,
         },
     })
 
-    const userPlatforms = await prisma.userPlatform.findMany({
-        where: {
-            userId: user.id,
-        },
-        orderBy: {
-            order: 'asc',
-        },
-    })
-
-    return { user, platforms, userPlatforms }
+    return Promise.all([userAndUserPlatformsPromise, platformsPromise])
 }
 
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
     const session = await getRequiredAuthSession()
 
-    const { user, userPlatforms, platforms } = await fetchUserDashboardData(session)
+    const [{ userPlatforms, ...user }, platforms] = await fetchUserDashboardData(session)
 
     return (
         <DashboardForm
